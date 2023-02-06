@@ -1,4 +1,4 @@
-package com.tek.example1;
+package com.tek.week1;
 
 public class FirstClass {
 	public static void main(String[] args) {
