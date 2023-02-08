@@ -141,7 +141,7 @@ public class ControlStatements {
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}else if(income >= 372951) {
-				double incomeTax = .25 * income;
+				double incomeTax = .35 * income;
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}
@@ -167,7 +167,7 @@ public class ControlStatements {
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}else if(income >= 372951) {
-				double incomeTax = .25 * income;
+				double incomeTax = .35 * income;
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}
@@ -193,7 +193,7 @@ public class ControlStatements {
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}else if(income >= 186476) {
-				double incomeTax = .25 * income;
+				double incomeTax = .35 * income;
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}
@@ -219,7 +219,7 @@ public class ControlStatements {
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}else if(income >= 372951) {
-				double incomeTax = .25 * income;
+				double incomeTax = .35 * income;
 				System.out.println("Your federal personal income tax comes out to $"
 						+ incomeTax);
 			}
