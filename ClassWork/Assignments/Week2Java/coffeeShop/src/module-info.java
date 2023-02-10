@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author cbpat
+ *
+ */
+module CoffeeShop {
+}
