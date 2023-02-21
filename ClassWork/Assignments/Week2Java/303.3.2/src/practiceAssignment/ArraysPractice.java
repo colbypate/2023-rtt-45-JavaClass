@@ -9,6 +9,7 @@ public class ArraysPractice {
 		arrays.problem2();
 		arrays.problem3();
 		arrays.problem4();
+		arrays.problem5();
 
 		}
 	public void problem1() {
@@ -46,6 +47,10 @@ public class ArraysPractice {
 		
 	}
 	
+	public void problem5() {
+		int[] nums = new int[5];
+		for(int i = 0; )
+	}
 	
 
 }

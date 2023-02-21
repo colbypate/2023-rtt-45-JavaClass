@@ -1,6 +1,7 @@
 package coffeeShop;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,6 +40,18 @@ public class CoffeeShop {
 		
 		//	this does the same thing in one line of code
 		menuItems.add(new MenuItem("Egg Sandwich", 8.50, 25));
+		
+		menuItems.sort(new Comparator<MenuItem>(){
+			@Override
+			public int compare(MenuItem o1, MenuItem o2) {
+				//	this sorts by price
+				Double p1 = o1.getPrice();
+				Double p2 = o2.getPrice();
+				return p1.compareTo(p2);
+				
+				//	this sorts by name
+				//	return o1.getName().compareTo(o2.getName());			}
+		});
 		
 	}
 	
