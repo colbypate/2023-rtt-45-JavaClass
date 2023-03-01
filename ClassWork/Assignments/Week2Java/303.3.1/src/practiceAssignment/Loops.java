@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class Loops {
 	public static void main(String[] args) {
 		Loops loops = new Loops();
-		//loops.problem2();
+		loops.problem1();
+		loops.problem2();
 		loops.problem3();
 	}
 	
