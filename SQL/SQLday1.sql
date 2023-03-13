@@ -43,3 +43,9 @@ sum(p.buyPrice *od.quantityOrdered) as cost, sum(p.MSRP * od.quantityOrdered) as
 from products p, orderdetails od
 where p.productCode = od.productCode
 group by p.productCode;
+
+
+select c.customerNumber, c.customerName, o.orderNumber, o.orderDate, 
+p.productCode, p.productName, p.buyPrice
+from customers c, orders o, products p
+inner join
