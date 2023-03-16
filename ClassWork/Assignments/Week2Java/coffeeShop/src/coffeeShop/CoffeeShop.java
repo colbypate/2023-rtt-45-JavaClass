@@ -51,8 +51,8 @@ public class CoffeeShop {
 				
 				//	this sorts by name
 				//	return o1.getName().compareTo(o2.getName());			}
+			}
 		});
-		
 	}
 	
 	public void printMenuItems() {
