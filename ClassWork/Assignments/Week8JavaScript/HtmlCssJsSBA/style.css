@@ -3,6 +3,21 @@ body {
   height: 100vh;
   background-size: cover;
   background-position: top;
+  padding-top: 100px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.navbar {
+  display: flex;
+  align-items: baseline;
+  background-color: #f3e1f4;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+.navbar-brand img {
+  height: 100px;
+  margin-left: 20px;
 }
 .navbar .navbar-nav .nav-link {
   color: #000000;
@@ -28,4 +43,34 @@ body {
 .carousel-inner > .carousel-item > img {
   width: 800px;
   height: 450px;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #000;
+}
+
+.toggle-btn {
+  color: #000;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+/*RESPONSIVE DESIGN */
+@media (max-width: 992) {
+  .toggle-btn {
+    display: block;
+  }
+}
+.m-4,
+.ms-4 {
+  font-family: "Dancing Script", cursive;
+}
+
+.vendor-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+.hide {
+  display: none;
 }
