@@ -14,12 +14,14 @@ public interface EmployeeDAO extends JpaRepository<Employee, Long> {
 
     List<Employee> findByFirstNameContainingOrLastNameContainingIgnoreCase(String firstName, String lastName);
 
-    @Query(value="select * from employees where firstname like %:firstName% or lastName like %lastName% ;", nativeQuery = true)
+    @Query(value="select * from employees where firstname like %:firstName% or lastName like %:lastName% ;", nativeQuery = true)
     List<Employee> usingANativeQuery(String firstName, String lastName);
 
-    @Query("select e from Employee e where e.firstname like %:firstName% or e.lastName like %:lastName% ")
+    @Query("select e from Employee e where e.firstName like %:firstName% or e.lastName like %:lastName% ")
     List<Employee> usingJPAQuery(String firstName, String lastName);
 
 
+    List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
 
+    List<Employee> findByLastNameContainingIgnoreCase(String lastName);
 }

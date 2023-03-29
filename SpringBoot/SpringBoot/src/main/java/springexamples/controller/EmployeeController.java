@@ -1,5 +1,6 @@
 package springexamples.controller;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import springexamples.database.dao.EmployeeDAO;
 import springexamples.database.entity.Employee;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,7 +24,17 @@ public class EmployeeController {
         log.info("Employee search controller method with search = " + firstName + lastName);
         ModelAndView response = new ModelAndView("employee/employee-search");
 
-        List<Employee> employees = employeeDAO.findByFirstNameContainingOrLastNameContainingIgnoreCase(firstName, lastName);
+        List<Employee> employees = new ArrayList<>();
+        if(!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)){
+            employees = employeeDAO.findByFirstNameContainingOrLastNameContainingIgnoreCase(firstName, lastName);
+        }
+        if(!StringUtils.isEmpty(firstName) && StringUtils.isEmpty(lastName)){
+            employees = employeeDAO.findByFirstNameContainingIgnoreCase(firstName);
+        }
+        if(StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
+            employees = employeeDAO.findByLastNameContainingIgnoreCase(lastName);
+        }
+
         response.addObject("employeesList", employees);
         response.addObject("firstName", firstName);
         response.addObject("lastName", lastName);

@@ -16,7 +16,12 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="firstName" placeholder="Employee First Name"
                         aria-label="Employee First Name" aria-describedby="search" value="${firstName}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="lastName" placeholder="Employee Last Name"
+                        aria-label="Employee Last Name" aria-describedby="search" value="${lastName}">
                         <button class="btn btn-outline-secondary" id="firstName">Search</button>
+                    </div>
                     </div>
                 </form>
             </div>

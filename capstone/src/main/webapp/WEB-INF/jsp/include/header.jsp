@@ -12,8 +12,8 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
     <script src="https://kit.fontawesome.com/bbd562719d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <script src="/script.js"></script>
+    <link rel="stylesheet" href="/pub/css/style.css">
+    <script src="/pub/js/script.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
     </style>
