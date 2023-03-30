@@ -24,16 +24,16 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./index">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./signup">SignUp</a>
+                        <a class="nav-link" href="/signup">SignUp</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./bootstrap">Bootstrap Example</a>
+                        <a class="nav-link" href="/bootstrap">Bootstrap Example</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../employee-search">EmployeeSearch</a>
+                        <a class="nav-link" href="/employee/search">EmployeeSearch</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"

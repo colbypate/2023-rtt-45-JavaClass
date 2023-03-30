@@ -3,6 +3,8 @@ package springexamples.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,14 +13,14 @@ import springexamples.database.dao.EmployeeDAO;
 @Slf4j
 @Controller
 public class SlashController {
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = {"/index","/", "/index.html"}, method = RequestMethod.GET)
     public ModelAndView index() {
         log.debug("Index controller method:");
         ModelAndView response = new ModelAndView("index");
         /* the index name in the ModelAndView is the name of the jsp file without the extension */
         return response;
     }
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @GetMapping("/signup")
     public ModelAndView signup() {
         log.debug("Signup controller method:");
         ModelAndView response = new ModelAndView("signup");
