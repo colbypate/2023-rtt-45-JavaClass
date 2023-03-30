@@ -21,7 +21,7 @@
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg shadow-lg">
-    <a class="navbar-brand d-lg-none" href="#"><img src="Photos\ScottsStaticeSmallLogoTransparent.png"></a>
+    <a class="navbar-brand d-lg-none" href="#"><img src="/pub/images/ScottsStaticeSmallLogoTransparent.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
                         style="width: 250px; margin-left: 50px; margin-right: 50px;"></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="./index.html">Dashboard <span class="sr-only"></span></a>
+                <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Inventory</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./vendors.html">Vendors</a>
+                <a class="nav-link" href="/vendor">Vendors</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Sales</a>
@@ -53,7 +53,7 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="./login.html">Login</a></li>
+                    <li><a class="dropdown-item" href="/login">Login</a></li>
                     <li><a class="dropdown-item" href="#">Register</a></li>
                 </ul>
             </div>

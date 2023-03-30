@@ -1,6 +1,5 @@
 <jsp:include page="include/header.jsp" />
-<link rel="stylesheet" href="/pub/css/style.css">
-<script src="/pub/js/script.js"></script>
+
 
 <body>
 

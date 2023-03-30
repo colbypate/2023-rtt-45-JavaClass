@@ -20,7 +20,15 @@ public class SlashController {
     @RequestMapping(value = "/vendor", method = RequestMethod.GET)
     public ModelAndView vendor() {
         log.info("Vendor controller method:");
-        ModelAndView response = new ModelAndView("evndor");
+        ModelAndView response = new ModelAndView("vendor");
+        /* the index name in the ModelAndView is the name of the jsp file without the extension */
+        return response;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login() {
+        log.info("Login controller method:");
+        ModelAndView response = new ModelAndView("login");
         /* the index name in the ModelAndView is the name of the jsp file without the extension */
         return response;
     }
