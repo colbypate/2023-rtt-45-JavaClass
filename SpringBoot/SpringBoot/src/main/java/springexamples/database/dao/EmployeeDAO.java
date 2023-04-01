@@ -15,6 +15,8 @@ public interface EmployeeDAO extends JpaRepository<Employee, Long> {
 
     List<Employee> findByFirstNameContainingOrLastNameContainingIgnoreCase(String firstName, String lastName);
 
+    //Employee createNewEmployee();
+
     @Query(value="select * from employees where firstname like %:firstName% or lastName like %:lastName% ;", nativeQuery = true)
     List<Employee> usingANativeQuery(String firstName, String lastName);
 
