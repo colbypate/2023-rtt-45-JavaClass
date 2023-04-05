@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Controller
 public class SlashController {
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    @RequestMapping(value = {"/dashboard","/", "/dashboard.html"}, method = RequestMethod.GET)
     public ModelAndView dashboard() {
         log.info("Dashboard controller method:");
         ModelAndView response = new ModelAndView("dashboard");
@@ -25,11 +25,12 @@ public class SlashController {
         return response;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login() {
-        log.info("Login controller method:");
-        ModelAndView response = new ModelAndView("login");
+    @RequestMapping(value = "/inventory", method = RequestMethod.GET)
+    public ModelAndView inventory() {
+        log.info("Inventory controller method:");
+        ModelAndView response = new ModelAndView("inventory");
         /* the index name in the ModelAndView is the name of the jsp file without the extension */
         return response;
     }
+
 }

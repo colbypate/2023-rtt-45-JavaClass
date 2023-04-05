@@ -1,4 +1,5 @@
-<jsp:include page="include/header.jsp" />
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="../include/header.jsp" />
 
 
 <body>
@@ -34,10 +35,10 @@
                                                 <select id="countryInput" class="form-select"
                                                     aria-label="Default select example">
                                                     <option selected>Job</option>
-                                                    <option value="USA">Manager</option>
-                                                    <option value="GBR">Sales</option>
-                                                    <option value="AUS">Employee</option>
-                                                    <option value="JPN">Admin</option>
+                                                    <option value="Manager">Manager</option>
+                                                    <option value="Sales">Sales</option>
+                                                    <option value="Employee">Employee</option>
+                                                    <option value="Admin">Admin</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -74,4 +75,4 @@
 
 </body>
 
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="../include/footer.jsp" />

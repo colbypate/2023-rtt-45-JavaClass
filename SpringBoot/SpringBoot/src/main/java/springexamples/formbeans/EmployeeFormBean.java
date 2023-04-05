@@ -7,7 +7,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class EmployeeFormBean {
-
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -15,5 +15,6 @@ public class EmployeeFormBean {
     private String extension;
     private Integer vacationHours;
     private Integer officeId;
+    private String profileImage;
 
 }

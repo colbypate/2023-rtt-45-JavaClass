@@ -18,6 +18,13 @@ public class SlashController {
         log.debug("Index controller method:");
         ModelAndView response = new ModelAndView("index");
         /* the index name in the ModelAndView is the name of the jsp file without the extension */
+
+        log.trace("This is a trace log example");
+        log.debug("This is a debug log example");
+        log.info("This is an info log example");
+        log.warn("This is a warn log example");
+        log.error("This is an error log example");
+
         return response;
     }
     @GetMapping("/signup")
