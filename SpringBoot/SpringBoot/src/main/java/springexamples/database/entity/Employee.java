@@ -20,6 +20,9 @@ public class Employee {
 	@Column(name = "id")
 	private Integer id;
 
+	@Column(name = "office_id")
+	private Integer officeId;
+
 	@Column(name = "lastname")
 	private String lastName;
 
@@ -32,23 +35,20 @@ public class Employee {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "office_id")
-	private Integer officeId;
-
 	@Column(name = "reports_to")
 	private Integer reportsTo;
 
 	@Column(name = "job_title")
 	private String jobTitle;
 
-	@Column(name = "vacation_hours")
-	private Integer vacationHours;
-
 	@Column(name = "profile_image_url")
 	private String profileImage;
 
+	@Column(name = "vacation_hours")
+	private Integer vacationHours;
+
 	@ToString.Exclude
-	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Customer> customers = new ArrayList<Customer>();
 
 	@Override
@@ -82,5 +82,5 @@ public class Employee {
 		return true;
 	}
 
-	
+
 }

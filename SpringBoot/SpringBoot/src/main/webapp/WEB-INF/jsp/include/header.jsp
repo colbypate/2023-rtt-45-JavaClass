@@ -33,19 +33,18 @@
                         <a class="nav-link" href="/bootstrap">Bootstrap Example</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/employee/search">EmployeeSearch</a>
+                        <a class="nav-link" href="/fileUpload">File Upload</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/employee/create">Create User</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Employee
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/employee/search">Search</a></li>
+                        <li><a class="dropdown-item" href="/employee/create">Create</a></li>
+                    </ul>
+                </li>
                 </ul>
             </div>
         </div>
