@@ -18,9 +18,19 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
-        log.info("Login controller method:");
+        log.info("Login in the User controller method:");
         ModelAndView response = new ModelAndView("user/login");
         /* the index name in the ModelAndView is the name of the jsp file without the extension */
+
+        return response;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public ModelAndView register() {
+        log.info("Register in the User controller method:");
+        ModelAndView response = new ModelAndView("user/register");
+        /* the index name in the ModelAndView is the name of the jsp file without the extension */
+
         return response;
     }
 }

@@ -8,8 +8,19 @@ import java.util.List;
 
 public interface UserDAO extends JpaRepository<User, Long> {
 
-    @Query("from user u")
+
+    @Query("from User u")
+
     List<User> getAllUsers();
+
+    User findById(Integer id);
+
+
+
+
+
+
+
 
 
 

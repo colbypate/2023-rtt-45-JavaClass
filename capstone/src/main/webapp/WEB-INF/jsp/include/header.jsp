@@ -54,7 +54,7 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><a class="dropdown-item" href="/user/login">Login</a></li>
-                    <li><a class="dropdown-item" href="#">Register</a></li>
+                    <li><a class="dropdown-item" href="/user/register">Register</a></li>
                 </ul>
             </div>
         </div>
