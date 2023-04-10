@@ -5,6 +5,7 @@ import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +22,8 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("/employee")
+//this makes it so that only users with admin authority can access these pages
+@PreAuthorize("hasAuthority('ADMIN')")
 public class EmployeeController {
     @Autowired
     private EmployeeDAO employeeDAO;

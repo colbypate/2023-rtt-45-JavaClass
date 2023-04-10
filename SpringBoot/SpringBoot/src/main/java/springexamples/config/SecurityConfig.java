@@ -36,7 +36,12 @@ public class SecurityConfig {
                 // this URL is where spring security will send the user IF they have not requested a secure URL
                 // if they have requested a secure URL spring security will ignore this and send them to the
                 // secured url they requested
-                .defaultSuccessUrl("/");
+                .defaultSuccessUrl("/")
+            .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .logoutUrl("/login/logout")
+                .logoutSuccessUrl("/index");
         return http.build();
     }
 

@@ -21,7 +21,7 @@ public interface EmployeeDAO extends JpaRepository<Employee, Long> {
 //    @Query(value="select * from employees where firstname like %:firstName% or lastName like %:lastName% ;", nativeQuery = true)
 //    List<Employee> usingANativeQuery(String firstName, String lastName);
 //
-//    @Query("select e from Employee e where e.firstName like %:firstName% or e.lastName like %:lastName% ")
+//    @Query("select * from Employee e where e.firstName like %:firstName% or e.lastName like %:lastName% ")
 //    List<Employee> usingJPAQuery(String firstName, String lastName);
 
 
