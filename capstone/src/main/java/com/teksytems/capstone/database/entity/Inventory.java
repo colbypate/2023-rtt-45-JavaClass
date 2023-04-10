@@ -29,5 +29,5 @@ public class Inventory {
     private BigDecimal price;
 
     @Column(name = "photo_url")
-    private String photoUrl;
+    private String photoURL;
 }
