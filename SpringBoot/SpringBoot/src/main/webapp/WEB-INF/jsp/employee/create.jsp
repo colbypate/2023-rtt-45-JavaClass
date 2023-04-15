@@ -21,19 +21,39 @@
         <div class="row justify-content-center">
             <div class="col-sm-10 col-md-7 col-xl-5">
                 <form action="/employee/createSubmit" method="POST">
+                <c:if test="${success}">
+                    <div class="alert alert-success" role="alert">
+                      Employee Created!
+                    </div>
+                </c:if>
                     <input type="hidden" name="id" value="${form.id}"/>
                     <div class="mb-4">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                         <input type="text" placeholder="Email address" class="form-control" id="exampleInputEmail1" name="email"
                                aria-describedby="emailHelp" value="${form.email}">
+                          <c:if test="${bindingResult.hasFieldErrors('email')}">
+                              <c:forEach items="${bindingResult.getFieldErrors('email')}" var="error">
+                                  <div style="color:red;">${error.getDefaultMessage()}</div>
+                              </c:forEach>
+                          </c:if>
                     </div>
                     <div class="mb-4">
                         <label for="firstName" class="form-label">First Name</label>
                         <input type="text" class="form-control" id="firstName" name="firstName" aria-describedby="firstNameHelp" value="${form.firstName}">
+                         <c:if test="${bindingResult.hasFieldErrors('firstName')}">
+                             <c:forEach items="${bindingResult.getFieldErrors('firstName')}" var="error">
+                                 <div style="color:red;">${error.getDefaultMessage()}</div>
+                             </c:forEach>
+                         </c:if>
                     </div>
                     <div class="mb-4">
                         <label for="lastName" class="form-label">Last Name</label>
                         <input type="text" class="form-control" id="lastName" name="lastName" aria-describedby="lastNameHelp" value="${form.lastName}">
+                          <c:if test="${bindingResult.hasFieldErrors('lastName')}">
+                              <c:forEach items="${bindingResult.getFieldErrors('lastName')}" var="error">
+                                  <div style="color:red;">${error.getDefaultMessage()}</div>
+                              </c:forEach>
+                          </c:if>
                     </div>
                     <div class="mb-4">
                         <label for="office" class="form-label">Office</label>
@@ -58,6 +78,11 @@
                     <div class="mb-4">
                         <label for="vacationHours" class="form-label">Vacation Hours</label>
                         <input type="number" class="form-control" id="vacationHours" name="vacationHours" aria-describedby="vacationHoursHelp" value="${form.vacationHours}">
+                          <c:if test="${bindingResult.hasFieldErrors('vacationHours')}">
+                              <c:forEach items="${bindingResult.getFieldErrors('vacationHours')}" var="error">
+                                  <div style="color:red;">${error.getDefaultMessage()}</div>
+                              </c:forEach>
+                          </c:if>
                     </div>
                     <div class="mb-4">
                         <label for="extension" class="form-label">Extension</label>

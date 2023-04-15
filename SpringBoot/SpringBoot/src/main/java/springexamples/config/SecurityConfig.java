@@ -2,6 +2,8 @@ package springexamples.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,17 +15,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
                 // this line is saying anything with the URL /employee/** is going require authentication
                 // you can put any number of URLS that you want to secure here with a comma sepearting them,
-            .authorizeHttpRequests().requestMatchers("/employee/**","/product/**","/cart/**").authenticated()
+                .authorizeHttpRequests().requestMatchers("/employee/**", "/product/**", "/cart/**").authenticated()
                 // everything else in the application is going to permitted
-            .anyRequest().permitAll()
-        	.and()
+                .anyRequest().permitAll()
+                .and()
                 .formLogin()
                 // this is the URL to the login page
                 // the request method for this is implemented in the login controller
@@ -37,7 +39,7 @@ public class SecurityConfig {
                 // if they have requested a secure URL spring security will ignore this and send them to the
                 // secured url they requested
                 .defaultSuccessUrl("/")
-            .and()
+                .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .logoutUrl("/login/logout")
@@ -45,9 +47,15 @@ public class SecurityConfig {
         return http.build();
     }
 
-    
-    @Bean(name= "passwordEncoder")
-    public PasswordEncoder getPasswordEncoder(){
+
+    @Bean(name = "passwordEncoder")
+    public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 }

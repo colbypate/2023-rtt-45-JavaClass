@@ -1,12 +1,16 @@
 package springexamples.controller;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import springexamples.database.dao.EmployeeDAO;
@@ -85,11 +89,28 @@ public class EmployeeController {
     }
 
     @PostMapping("/createSubmit")
-    public ModelAndView createSubmit(EmployeeFormBean form) {
+    public ModelAndView createSubmit(@Valid EmployeeFormBean form, BindingResult bindingResult) {
         ModelAndView response = new ModelAndView("employee/create");
 
         List<Office> offices = officeDAO.getAllOffices();
         response.addObject("offices", offices);
+
+
+        if ( bindingResult.hasErrors() ) {
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                log.debug("Validation Error on field : " + error.getField() + " with message : " + error.getDefaultMessage());
+            }
+
+
+            response.addObject("form", form);
+            response.addObject("bindingResult", bindingResult);
+
+            return response;
+        }
+
+        //If we get this far it means there were no errors in the incoming data
+
+
 
         log.debug("!!!!!!!!!!!!!!! In employee controller - create submit employee");
         log.debug(form.toString());
@@ -122,6 +143,13 @@ public class EmployeeController {
 
         // now we add the populated form back to the model so when page can display itself again
         response.addObject("form", form);
+
+        // now we add a boolean to the model so that we can add a success on the page
+        response.addObject("success", true);
+
+        // set the ID of the employee on the form bean so that it triggers the page to be an edit
+        // this puts the page into edit mode because if the id is  present in the form it knows to convert to edit
+        form.setId(emp.getId());
 
         // instead of processing a JSP view we can also redirect to another page
         // response.setViewName("redirect:/employee/edit/" + emp.getId());

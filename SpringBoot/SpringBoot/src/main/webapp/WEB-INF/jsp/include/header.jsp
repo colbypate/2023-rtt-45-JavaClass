@@ -36,17 +36,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/fileUpload">File Upload</a>
                     </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Employee
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/employee/search">Search</a></li>
-                        <li><a class="dropdown-item" href="/employee/create">Create</a></li>
-                    </ul>
-
-                </li>
+                    <sec:authorize access="hasAnyAuthority('ADMIN')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Employee
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/employee/search">Search</a></li>
+                            <li><a class="dropdown-item" href="/employee/create">Create</a></li>
+                        </ul>
+                    </li>
+                    </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                 <li class="nav-item">
                     <a class="nav-link" href="/login/logout">Logout</a>
@@ -59,6 +60,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login/loginPage">Login</a>
                 </li>
+                </sec:authorize>
+                <sec:authorize access="hasAnyAuthority('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Admin Link</a>
+                    </li>
                 </sec:authorize>
 
                 </ul>

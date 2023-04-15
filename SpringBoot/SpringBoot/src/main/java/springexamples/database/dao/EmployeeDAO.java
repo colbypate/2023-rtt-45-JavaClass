@@ -33,4 +33,7 @@ public interface EmployeeDAO extends JpaRepository<Employee, Long> {
     @Query(value="select e.*,  o.city from employees e, offices o where e.office_id = o.id", nativeQuery = true)
     List<Map<String, Object>> findAllWithOfficeName();
 
+    boolean existsByEmail(String email);
+
+    Employee findByEmail(String email);
 }
