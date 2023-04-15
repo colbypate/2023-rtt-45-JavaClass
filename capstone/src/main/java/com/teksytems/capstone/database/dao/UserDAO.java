@@ -18,5 +18,9 @@ public interface UserDAO extends JpaRepository<User, Long> {
     @Query(value="select distinct(job) from user;", nativeQuery = true)
     List<String> getAllJobs();
 
+    User findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
 
 }

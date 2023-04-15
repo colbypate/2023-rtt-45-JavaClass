@@ -12,7 +12,6 @@ body {
 
 .navbar {
   display: flex;
-  align-items: baseline;
   background-color: #f3e1f4;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
@@ -28,7 +27,7 @@ body {
   /* padding: auto; */
   /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2); */
   /* border-radius: 25px; */
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 /* .navbar .navbar-nav .nav-link:hover {
   color: #808080;
@@ -36,9 +35,9 @@ body {
 .nav-item {
   margin: auto;
 }
-.dropdown {
+/* .dropdown {
   padding-right: 200px;
-}
+} */
 .carousel-inner {
   padding: 50px;
   margin: 0;

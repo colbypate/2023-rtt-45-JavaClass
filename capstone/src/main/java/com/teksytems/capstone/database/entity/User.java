@@ -31,4 +31,7 @@ public class User {
 
     @Column(name="job")
     private String job;
+
+    @Column(name="password")
+    private String password;
 }

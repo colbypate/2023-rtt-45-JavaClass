@@ -1,4 +1,4 @@
-package com.teksytems.capstone.database.formbeans;
+package com.teksytems.capstone.formbeans;
 
 import java.math.BigDecimal;
 

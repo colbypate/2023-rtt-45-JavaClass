@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +19,7 @@ import io.micrometer.common.util.StringUtils;
 
 @Slf4j
 @Controller
+@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/inventory")
 public class InventoryController {
 

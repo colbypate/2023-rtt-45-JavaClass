@@ -6,6 +6,7 @@ import com.teksytems.capstone.database.entity.User;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,20 +19,21 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserDAO userDAO;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login() {
-        log.info("Login in the User controller method:");
-        ModelAndView response = new ModelAndView("user/login");
-        /* the index name in the ModelAndView is the name of the jsp file without the extension */
+    // @RequestMapping(value = "/login", method = RequestMethod.GET)
+    // public ModelAndView login() {
+    //     log.info("Login in the User controller method:");
+    //     ModelAndView response = new ModelAndView("user/login");
+    //     /* the index name in the ModelAndView is the name of the jsp file without the extension */
 
-        return response;
-    }
+    //     return response;
+    // }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() {
