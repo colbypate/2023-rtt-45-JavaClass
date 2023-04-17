@@ -88,7 +88,7 @@ public class InventoryController {
 
     @GetMapping("/details/{id}")
     public ModelAndView detail(@PathVariable Integer id) {
-        ModelAndView response = new ModelAndView("inventory/detail");
+        ModelAndView response = new ModelAndView("inventory/details");
 
         log.debug("In employee detail controller method with id = " + id);
         Inventory inventory = inventoryDAO.findInventoryById(id);

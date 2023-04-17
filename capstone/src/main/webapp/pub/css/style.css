@@ -12,7 +12,8 @@ body {
 
 .navbar {
   display: flex;
-  background-color: #f3e1f4;
+  /* background-color: #f3e1f4; */
+  background-color: rgb(255, 255, 255);
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
@@ -64,7 +65,8 @@ body {
   }
 }
 .m-4,
-.ms-4 {
+.ms-4,
+.nav-link {
   font-family: "Dancing Script", cursive;
 }
 

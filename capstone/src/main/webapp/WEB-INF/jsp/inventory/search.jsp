@@ -12,7 +12,7 @@
                                 .card {
                                     border-radius: 25px;
                                     backdrop-filter: blur(2px);
-                                    background-color: rgba(255, 255, 255, 0.2);
+                                    background-color: rgba(255, 255, 255, 0.901);
                                 }
                             </style>
                             <section class="pt-5 pb-5 bg-light-grey">

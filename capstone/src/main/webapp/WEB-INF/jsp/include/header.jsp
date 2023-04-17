@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <a class="d-sm-block d-md-block d-lg-block" href="#"><img
                     src="/pub/images/ScottsStaticeSmallLogoTransparent.png"
-                    style="width: 250px; margin-left: 50px; margin-right: 50px;"></a>
+                    style="height: 65px; margin-left: 50px; margin-right: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

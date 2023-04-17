@@ -6,77 +6,62 @@
         <section class="vh-100">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-lg-12 col-xl-11">
+                    <div class="col-lg-12 col-xl-12">
                         <div class="card text-black">
                             <style>
                                 .card {
                                     border-radius: 25px;
                                     backdrop-filter: blur(2px);
-                                    background-color: rgba(255, 255, 255, 0.2);
+                                    background-color: rgba(255, 255, 255, 0.901);
                                 }
                             </style>
                             <section class="pt-5 pb-5 bg-light-grey">
                                 <div class="container">
                                     <center>
-                                        <h1> Search Inventory</h1>
+                                        <h1 class="pb-5">Product Details</h1>
                                     </center>
-                                    <div class="row text-center justify-content-center">
-                                        <div class="col-5">
-                                            <form>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="productName"
-                                                        placeholder="Product Name" aria-label="Product Name"
-                                                        value="${searchParam}">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-xl-8">
+                                            <div class="row mb-2">
+                                                <div class="col-12 text-start">
+                                                    <button type="button" class="btn btn-primary">Edit</button>
                                                 </div>
-                                                <button class="btn btn-outline-secondary" id="search">Search</button>
-
-                                            </form>
+                                            </div>
+                                            <table class="table table-striped border">
+                                                <tr>
+                                                    <td>Inventory Id</td>
+                                                    <td>${inventory.id}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Product Name</td>
+                                                    <td>${inventory.productName}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Quantity</td>
+                                                    <td>${inventory.quantity}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Price</td>
+                                                    <td>${inventory.price}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-4 col-xl-4">
+                                            <table class="table table-striped border">
+                                                <tr>
+                                                    <td>Product Image</td>
+                                                    <td><img src="${inventory.photoURL}" class="img-fluid"></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </section>
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <section class="pt-5 pb-5 bg-dark-grey">
-                                        <div class="container text-center">
-
-                                            <h4 class="pb-2">${inv.productName} Details</h4>
-
-                                            <table class="table table-striped border">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Id</th>
-                                                        <th scope="col">Product Name</th>
-                                                        <th scope="col">Quantity</th>
-                                                        <th scope="col">Price</th>
-                                                        <!-- <th scope="col">Photo</th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach items="${inventoryList}" var="inv">
-                                                        <tr>
-                                                            <!-- <td><a href="/employee/detail/${emp.id}">${emp.id}</a></td> -->
-                                                            <td>${inv.id}</td>
-                                                            <td><a
-                                                                    href="inventory/details/${inv.productName}">${inv.productName}</a>
-                                                            </td>
-                                                            <td>${inv.quantity}</td>
-                                                            <td>${inv.price}</td>
-                                                            <!-- <td>${inv.photoURL}</td> -->
-                                                            <!-- <td><a href="/employee/edit/${emp.id}">Edit</a></td> -->
-                                                        </tr>
-                                                    </c:forEach>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
-
     </body>
 
     <jsp:include page="../include/footer.jsp" />

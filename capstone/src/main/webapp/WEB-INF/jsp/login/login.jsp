@@ -12,7 +12,7 @@
                                 .card {
                                     border-radius: 25px;
                                     backdrop-filter: blur(2px);
-                                    background-color: rgba(255, 255, 255, 0.2);
+                                    background-color: #ffffffe4;
                                 }
                             </style>
                             <div class="card-body p-md-5">
