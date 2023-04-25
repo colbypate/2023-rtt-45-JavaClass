@@ -10,14 +10,16 @@ import java.util.*;
 
 public interface InventoryDAO extends JpaRepository<Inventory, Long>{
 
+    Inventory findById(Integer id);
+
     @Query(value="select * from inventory i", nativeQuery = true)
     List<Inventory>getAllInventories();
 
     @Query(value="select * from inventory i where i.product_name like %:productName% ", nativeQuery = true)
     List<Inventory> findInventoryByProductName(String productName);
 
-    @Query(value="select * from inventory i where i.id = :id ", nativeQuery = true)
-    Inventory findInventoryById(Integer id);
+    @Query(value="select * from inventory i where i.product_name like %:productName% ", nativeQuery = true)
+    Inventory findInventoryByProductNameExact(String productName);
 
 
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teksytems.capstone.database.dao.UserDAO;
-import com.teksytems.capstone.database.dao.UserRoleDAO;
+import com.teksytems.capstone.database.dao.UserRolesDAO;
 import com.teksytems.capstone.security.AuthenticatedUserService;
 
 @Slf4j
@@ -27,7 +27,7 @@ public class SlashController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRoleDAO userRoleDAO;
+    private UserRolesDAO userRoleDAO;
 
     @RequestMapping(value = {"/dashboard","/", "/dashboard.html"}, method = RequestMethod.GET)
     public ModelAndView dashboard() {

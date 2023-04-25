@@ -20,39 +20,57 @@
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register User</p>
                                 <div class="row justify-content-center">
                                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                                        <form id="form">
-
+                                        <form id="form" action="/user/registerSubmit" method="POST">
                                             <div class="row justify-content-center">
                                                 <div class="mb-3 col-8 col-xl-5">
                                                     <label for="firstName" class="form-label">First Name</label>
                                                     <input type="text" class="form-control" id="firstName"
-                                                        aria-describedby="firstName">
+                                                        name="firstName" aria-describedby="firstNameHelp"
+                                                        value="${form.firstName}">
+                                                    <c:if test="${bindingResult.hasFieldErrors('firstName')}">
+                                                        <c:forEach items="${bindingResult.getFieldErrors('firstName')}"
+                                                            var="error">
+                                                            <div style="color:red;">${error.getDefaultMessage()}</div>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                                 <div class="mb-3 col-8 col-xl-5">
                                                     <label for="lastName" class="form-label">Last Name</label>
                                                     <input type="text" class="form-control" id="lastName"
-                                                        aria-describedby="lastName">
+                                                        name="lastName" aria-describedby="lastNameHelp"
+                                                        value="${form.lastName}">
+                                                    <c:if test="${bindingResult.hasFieldErrors('lastName')}">
+                                                        <c:forEach items="${bindingResult.getFieldErrors('lastName')}"
+                                                            var="error">
+                                                            <div style="color:red;">${error.getDefaultMessage()}</div>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                             </div>
 
                                             <div class="row justify-content-center">
                                                 <div class="mb-3 col-8 col-xl-6">
                                                     <label for="emailInput" class="form-label">Email address</label>
-                                                    <input type="email" class="form-control" id="emailInput"
-                                                        aria-describedby="emailHelp">
+                                                    <input type="text" placeholder="Email address" class="form-control"
+                                                        id="exampleInputEmail1" name="email"
+                                                        aria-describedby="emailHelp" value="${form.email}">
+                                                    <c:if test="${bindingResult.hasFieldErrors('email')}">
+                                                        <c:forEach items="${bindingResult.getFieldErrors('email')}"
+                                                            var="error">
+                                                            <div style="color:red;">${error.getDefaultMessage()}</div>
+                                                        </c:forEach>
+                                                    </c:if>
                                                     <div id="emailHelp" class="form-text">Company Email Address</div>
                                                 </div>
 
                                                 <div class="col-4 mb-3">
                                                     <label for="job" class="form-label">Job Title</label>
-                                                    <select id="job" name="job" class="form-select">
-                                                        <c:forEach items="${jobs}" var="job">
-                                                            <option value="${user.job}" <c:if
-                                                                test="${user.job eq form.job}">
-                                                                selected
-                                                                </c:if>
-                                                                >${job}</option>
-                                                        </c:forEach>
+                                                    <select id="job" name="job" class="form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Job</option>
+                                                        <option value="Manager">Manager</option>
+                                                        <option value="Employee">Employee</option>
+                                                        <option value="Sales">Sales</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -61,26 +79,44 @@
                                             <div class="row justify-content-center">
                                                 <div class="mb-3 col-md-6 col-sm-12 col-xl-5">
                                                     <label for="passwordInput" class="form-label">Password</label>
-                                                    <input type="password" class="form-control" id="passwordInput">
-                                                    <div id="emailHelp" class="form-text">Minimum of 8 characters,
-                                                        including uppercase, lowercase, and a number</div>
+                                                    <input type="text" class="form-control" id="password"
+                                                        name="password" aria-describedby="passwordHelp">
+                                                    <div id="passwordHelp" class="form-text">Password must contain at
+                                                        least one uppercase letter,
+                                                        one
+                                                        lowercase letter, and one digit
+                                                    </div>
+                                                    <c:if test="${bindingResult.hasFieldErrors('password')}">
+                                                        <c:forEach items="${bindingResult.getFieldErrors('password')}"
+                                                            var="error">
+                                                            <div class="errorMessage" style="color: red;">
+                                                                ${error.getDefaultMessage()}</div>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                                 <div class="mb-3 col-md-6 col-sm-12 col-xl-5">
                                                     <label for="confirmPasswordInput" class="form-label">Confirm
                                                         Password</label>
-                                                    <input type="password" class="form-control"
-                                                        id="confirmPasswordInput">
+                                                    <input type="text" class="form-control" id="confirmPassword"
+                                                        name="confirmPassword" aria-describedby="confirmPasswordHelp">
+                                                    <c:if test="${bindingResult.hasFieldErrors('confirmPassword')}">
+                                                        <c:forEach
+                                                            items="${bindingResult.getFieldErrors('confirmPassword')}"
+                                                            var="error">
+                                                            <div class="errorMessage" style="color: red;">
+                                                                ${error.getDefaultMessage()}</div>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                             </div>
 
                                             <div class="row justify-content-center">
                                                 <div class="col col-3">
-                                                    <button type="submit" class="btn btn-primary"
-                                                        onclick="formSubmit()">Submit</button>
+                                                    <button type="submit" id="submitBtn"
+                                                        class="btn btn-primary">Submit</button>
                                                 </div>
                                                 <div class="col col-3">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        onclick="cancelClicked()">Cancel</button>
+                                                    <button type="button" class="btn btn-secondary">Cancel</button>
                                                 </div>
                                             </div>
 

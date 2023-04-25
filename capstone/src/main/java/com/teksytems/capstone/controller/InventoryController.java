@@ -14,15 +14,18 @@ import org.springframework.web.servlet.ModelAndView;
 import com.teksytems.capstone.database.dao.InventoryDAO;
 import com.teksytems.capstone.database.dao.UserDAO;
 import com.teksytems.capstone.database.entity.Inventory;
+import com.teksytems.capstone.security.AuthenticatedUserService;
 
 import io.micrometer.common.util.StringUtils;
 
 @Slf4j
 @Controller
-@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/inventory")
 public class InventoryController {
 
+    @Autowired
+    private AuthenticatedUserService authenticatedUserService;
+    
     @Autowired
     private UserDAO userDAO;
 
@@ -77,7 +80,7 @@ public class InventoryController {
         }
         if(StringUtils.isEmpty(productName)){
             log.debug("last name field has a value and first name is  empty");
-            inventory = inventoryDAO.findInventoryByProductName(productName);
+            inventory = inventoryDAO.getAllInventories();
         }
 
         response.addObject("inventoryList", inventory);
@@ -86,12 +89,12 @@ public class InventoryController {
         return response;
     }
 
-    @GetMapping("/details/{id}")
-    public ModelAndView detail(@PathVariable Integer id) {
+    @GetMapping("/details/{productName}")
+    public ModelAndView detail(@PathVariable String productName) {
         ModelAndView response = new ModelAndView("inventory/details");
 
-        log.debug("In employee detail controller method with id = " + id);
-        Inventory inventory = inventoryDAO.findInventoryById(id);
+        log.debug("In inventory detail controller method with name = " + productName);
+        Inventory inventory = inventoryDAO.findInventoryByProductNameExact(productName);
 
         response.addObject("inventory", inventory);
 

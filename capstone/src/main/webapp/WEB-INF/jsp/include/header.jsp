@@ -38,11 +38,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/inventory/search">Inventory</a>
                     </li>
+                    <div class="dropdown">
+                        <sec:authorize access="isAuthenticated()">
+                            <a class="btn dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Orders
+                            </a>
+                            <ul class="dropdown-menu" style="margin-right: auto;" aria-labelledby="dropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="/orders/search">View Orders</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/orders/create">Create Order</a>
+                                </li>
+                        </sec:authorize>
+                    </div>
                     <li class="nav-item">
-                        <a class="nav-link" href="/vendor">Vendors</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sales</a>
+                        <a class="nav-link" href="/sales">Sales</a>
                     </li>
                     <div class="dropdown">
                         <sec:authorize access="hasAnyAuthority('ADMIN')">
@@ -53,9 +65,6 @@
                             <ul class="dropdown-menu" style="margin-right: auto;" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a class="dropdown-item" href="/user/search">Find Employee</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/login/loginPage">Login</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/user/register">Register Employee</a>
@@ -81,7 +90,7 @@
                     </a>
                     <ul class="dropdown-menu" style="margin-right: auto;" aria-labelledby="dropdownMenuLink">
                         <sec:authorize access="isAuthenticated()">
-                            <li><a class="dropdown-item" href="/user/detail">Profile</a></li>
+                            <li><a class="dropdown-item" href="/user/details">Profile</a></li>
                         </sec:authorize>
                         <sec:authorize access="!isAuthenticated()">
                             <li><a class="dropdown-item" href="/login/loginPage">Login</a></li>

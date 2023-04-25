@@ -10,7 +10,7 @@ import lombok.ToString;
 @Entity
 @ToString
 @Table(name = "user_roles")
-public class UserRole {
+public class UserRoles {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,16 @@ public class UserRole {
 	private Integer id;
 
 	// this is the foreign key
-	@Column(name = "user_id")
+	@Column(name = "user_id", insertable=false, updatable=false)
 	private Integer userId;
 
 	@Column(name = "role_name")
 	private String roleName;
 
+
+	@ToString.Exclude
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 
 }

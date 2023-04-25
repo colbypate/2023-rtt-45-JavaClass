@@ -10,17 +10,21 @@ public interface UserDAO extends JpaRepository<User, Long> {
 
 
     @Query("from User u")
-
     List<User> getAllUsers();
 
-    User findById(Integer id);
+    List<User> findByFirstNameContainingAndLastNameContainingIgnoreCase(String firstName, String lastName);
 
-    @Query(value="select distinct(job) from user;", nativeQuery = true)
-    List<String> getAllJobs();
+    List<User> findByFirstNameContainingIgnoreCase(String firstName);
+
+    List<User> findByLastNameContainingIgnoreCase(String lastName);
+
+    User findById(Integer id);
 
     User findByEmail(String email);
 
     boolean existsByEmail(String email);
-
+    
+    // @Query(value="select distinct(job) from user;", nativeQuery = true)
+    // List<String> getAllJobs();
 
 }

@@ -26,5 +26,11 @@ public class UserFormBean {
     @EmailUnique(message="Email already exists in database.")
     private String email;
     private String job;
+
+    @NotEmpty(message = "Password is required.")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$])[A-Za-z\\d!@#$]{8,}$", message = "Invalid password format")
     private String password;
+
+    @NotEmpty(message = "Confirming password is required.")
+    private String confirmPassword;
 }

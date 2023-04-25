@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-sm-10 col-md-7 col-xl-5">
-                    <form action="/employee/createSubmit" method="POST">
+                    <form action="/user/createSubmit" method="POST">
                         <c:if test="${success}">
                             <div class="alert alert-success" role="alert">
                                 Employee Created!
@@ -95,9 +95,9 @@
                         </div>
 
 
-                        <button type="submit" id="create_btn" class="btn btn-primary mt-3 me-2"
-                            onclick="formSubmit()">Create
-                            Account</button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary mt-3 me-2">
+                            Create Account
+                        </button>
                     </form>
                 </div>
             </div>
@@ -106,4 +106,4 @@
 
 
 
-    <jsp:include page="../include/footer.jsp" />
+    <jsp:include page=" ../include/footer.jsp" />

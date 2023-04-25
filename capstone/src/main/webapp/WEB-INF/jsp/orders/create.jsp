@@ -44,34 +44,44 @@
                                             <div class="container text-center">
 
                                                 <h4 class="pb-2">${inventoryList.size()} Items</h4>
-
-                                                <table class="table table-striped border">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Product Name</th>
-                                                            <th scope="col">Quantity</th>
-                                                            <th scope="col">Price</th>
-                                                            <sec:authorize access="hasAnyAuthority('ADMIN')">
-                                                                <th scope="col">Edit</th>
-                                                            </sec:authorize>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <c:forEach items="${inventoryList}" var="inv">
+                                                <form action="/orders/addToCart">
+                                                    <input type="hidden" name="inventoryId" value="${inventory.id}">
+                                                    <table class="table table-striped border">
+                                                        <thead>
                                                             <tr>
-                                                                <td><a
-                                                                        href="/inventory/details/${inv.productName}">${inv.productName}</a>
-                                                                </td>
-                                                                <td>${inv.quantity}</td>
-                                                                <td>${inv.price}</td>
+                                                                <th scope="col">Product Name</th>
+                                                                <th scope="col">Quantity</th>
+                                                                <th scope="col">Price</th>
                                                                 <sec:authorize access="hasAnyAuthority('ADMIN')">
-                                                                    <td><a href="/inventory/edit/${inv.id}"
-                                                                            class="btn btn-primary">Edit</a></td>
+                                                                    <th scope="col">Edit</th>
                                                                 </sec:authorize>
+                                                                <th scope="col">Add To Cart</th>
                                                             </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach items="${inventoryList}" var="inv">
+                                                                <tr>
+                                                                    <td><a
+                                                                            href="/inventory/details/${inv.productName}">${inv.productName}</a>
+                                                                    </td>
+                                                                    <td>${inv.quantity}</td>
+                                                                    <td>${inv.price}</td>
+                                                                    <!-- <sec:authorize access="hasAnyAuthority('ADMIN')">
+                                                                        <td><a href="/inventory/edit/${inv.id}"
+                                                                                class="btn btn-primary">Edit</a></td>
+                                                                    </sec:authorize> -->
+                                                                    <!-- <td><a href="/orders/addToCart?inventoryId=${inv.id}"
+                                                                            class="btn btn-primary btn-lg">Add To
+                                                                            Cart</a></td> -->
+                                                                    <td><button value="${inv.id}" onclick="formSubmit()"
+                                                                            type="submit" class="btn btn-secondary">Add
+                                                                            to
+                                                                            Cart</button></td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
                                             </div>
                                         </section>
                                     </div>
@@ -82,5 +92,4 @@
             </section>
 
         </body>
-
         <jsp:include page="../include/footer.jsp" />

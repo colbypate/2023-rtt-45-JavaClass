@@ -14,9 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.teksytems.capstone.database.dao.UserDAO;
-import com.teksytems.capstone.database.dao.UserRoleDAO;
+import com.teksytems.capstone.database.dao.UserRolesDAO;
 import com.teksytems.capstone.database.entity.User;
-import com.teksytems.capstone.database.entity.UserRole;
+import com.teksytems.capstone.database.entity.UserRoles;
 
 
 
@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     private UserDAO userDAO;
 
     @Autowired
-    private UserRoleDAO userRoleDAO;
+    private UserRolesDAO userRoleDAO;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
 
-        List<UserRole> userRoles = userRoleDAO.findByUserId(user.getId());
+        List<UserRoles> userRoles = userRoleDAO.findByUserId(user.getId());
         Collection<? extends GrantedAuthority> springRoles = buildGrantAuthorities(userRoles);
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), 
@@ -52,10 +52,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
                 
     }
     
-    private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<UserRole> userRoles) {
+    private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<UserRoles> userRoles) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        for (UserRole role : userRoles) {
+        for (UserRoles role : userRoles) {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
 

@@ -62,15 +62,15 @@ public class Customer {
 	private String country;
 
 	
-	@Column(name = "salesRepEmployeeNumber", insertable=false, updatable=false)
-	private Integer salesRepEmployeeNumber;
+	@Column(name = "sales_rep_employee_id", insertable=false, updatable=false)
+	private Integer salesRepEmployeeId;
 
 	@Column(name = "credit_limit", columnDefinition = "decimal", precision = 10, scale = 2)
 	private Double creditLimit;
 
 	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
-	@JoinColumn(name = "salesRepEmployeeNumber", nullable = true)
+	@JoinColumn(name = "sales_rep_employee_id", nullable = true)
 	private Employee employee;
 	
 	@ToString.Exclude

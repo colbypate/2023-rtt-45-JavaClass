@@ -34,4 +34,19 @@ public class User {
 
     @Column(name="password")
     private String password;
+
+	@Column(name = "total_sales", columnDefinition = "decimal", precision = 10, scale = 2)
+	private Double totalSales;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Sales> sales = new ArrayList<Sales>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<UserRoles> userRoles = new ArrayList<UserRoles>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Orders> orders = new ArrayList<Orders>();
 }

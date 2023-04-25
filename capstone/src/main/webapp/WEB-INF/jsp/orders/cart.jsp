@@ -1,5 +1,5 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
         <jsp:include page="../include/header.jsp" />
 
@@ -54,6 +54,7 @@
                                                             <sec:authorize access="hasAnyAuthority('ADMIN')">
                                                                 <th scope="col">Edit</th>
                                                             </sec:authorize>
+                                                            <th scope="col">Add To Cart</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -68,6 +69,9 @@
                                                                     <td><a href="/inventory/edit/${inv.id}"
                                                                             class="btn btn-primary">Edit</a></td>
                                                                 </sec:authorize>
+                                                                <td><a href="/orders/addtocart?inventoryId=${inventory.id}"
+                                                                        class="btn btn-primary btn-lg">Add To
+                                                                        Cart</a></td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>

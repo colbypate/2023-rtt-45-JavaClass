@@ -1,6 +1,8 @@
 package com.teksytems.capstone.database.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,22 +21,22 @@ public class Sales {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name="user_id")
-    private Integer UserId;
-
-    @Column(name="inventory_id")
-    private Integer inventoryId;
-
-    @Column(name="quantity")
-    private Integer quantity;
-
-    @Column(name="price_per_unit")
-    private Integer pricePerUnit;
+    @Column(name="user_id", insertable=false, updatable=false)
+    private Integer userId;
 
     @Column(name="sale_date")
     private Date saleDate;
 
     @Column(name="comments")
     private String comments;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "sales", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<SaleDetails> saleDetails = new ArrayList<SaleDetails>();
+
+    @ToString.Exclude
+	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", nullable = true)
+	private User user;
     
 }

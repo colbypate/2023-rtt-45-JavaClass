@@ -166,6 +166,7 @@ public class EmployeeController {
         List<Employee> employees = new ArrayList<>();
 //        List<Employee> employees = employeeDAO.usingANativeQuery(firstName, lastName);
 //        List<Employee> employees = employeeDAO.usingJPAQuery(firstName, lastName);
+        employees = employeeDAO.getAllEmployees();
 
         if(!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)){
             log.debug("first name and last name fields have a value");

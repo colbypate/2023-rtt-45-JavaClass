@@ -21,11 +21,10 @@
                                         <div class="row justify-content-end">
                                             <div class="col-4">
                                                 <form>
-                                                    <p class="fw-bold text-start mb-1">Search Inventory:</p>
+                                                    <p class="fw-bold text-start mb-1">Search Orders:</p>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="productName"
-                                                            placeholder="Product Name" aria-label="Product Name"
-                                                            value="${searchParam}">
+                                                        <input type="text" class="form-control" name="id"
+                                                            placeholder="Product Name" aria-label="id" value="${id}">
                                                     </div>
                                                     <button class="btn btn-outline-secondary"
                                                         id="search">Search</button>
@@ -39,35 +38,30 @@
                                     <div class="row justify-content-center">
                                         <section class="pb-5 bg-dark-grey">
                                             <center>
-                                                <h1 class="mb-5">Inventory</h1>
+                                                <h1 class="mb-5">Orders</h1>
                                             </center>
                                             <div class="container text-center">
 
-                                                <h4 class="pb-2">${inventoryList.size()} Items</h4>
+                                                <h4 class="pb-2">${orderList.size()} Orders</h4>
 
                                                 <table class="table table-striped border">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">Product Name</th>
-                                                            <th scope="col">Quantity</th>
-                                                            <th scope="col">Price</th>
-                                                            <sec:authorize access="hasAnyAuthority('ADMIN')">
-                                                                <th scope="col">Edit</th>
-                                                            </sec:authorize>
+                                                            <th scope="col">Id</th>
+                                                            <th scope="col">Order Date</th>
+                                                            <th scope="col">Orderer</th>
+                                                            <th scope="col">More Info</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <c:forEach items="${inventoryList}" var="inv">
+                                                        <c:forEach items="${orderList}" var="ord">
                                                             <tr>
-                                                                <td><a
-                                                                        href="/inventory/details/${inv.productName}">${inv.productName}</a>
-                                                                </td>
-                                                                <td>${inv.quantity}</td>
-                                                                <td>${inv.price}</td>
-                                                                <sec:authorize access="hasAnyAuthority('ADMIN')">
-                                                                    <td><a href="/inventory/edit/${inv.id}"
-                                                                            class="btn btn-primary">Edit</a></td>
-                                                                </sec:authorize>
+                                                                <td>${ord.id}</td>
+                                                                <td>${ord.orderDate}</td>
+                                                                <td>${ord.userId}</td>
+                                                                <!-- <td>${orrd.totalPrice}</td> -->
+                                                                <td><a href="/inventory/edit/${inv.id}"
+                                                                        class="btn btn-primary">Details</a></td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>
