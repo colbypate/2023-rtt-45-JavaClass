@@ -10,6 +10,7 @@ import java.util.*;
 
 public interface InventoryDAO extends JpaRepository<Inventory, Long>{
 
+    @Query(value="select * from inventory i where i.id = :id ", nativeQuery = true)
     Inventory findById(Integer id);
 
     @Query(value="select * from inventory i", nativeQuery = true)

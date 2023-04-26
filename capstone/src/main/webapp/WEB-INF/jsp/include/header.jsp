@@ -70,6 +70,10 @@
                                     <a class="dropdown-item" href="/user/register">Register Employee</a>
                                 </li>
                         </sec:authorize>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders/viewCart">Cart</a>
+                    </li>
                 </ul>
             </div>
             </ul>

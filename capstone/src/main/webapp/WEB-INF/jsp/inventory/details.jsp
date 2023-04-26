@@ -27,24 +27,26 @@
                                                     <button type="button" class="btn btn-primary">Edit</button>
                                                 </div>
                                             </div>
-                                            <table class="table table-striped border">
-                                                <tr>
-                                                    <td>Inventory Id</td>
-                                                    <td>${inventory.id}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Product Name</td>
-                                                    <td>${inventory.productName}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Quantity</td>
-                                                    <td>${inventory.quantity}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Price</td>
-                                                    <td>${inventory.price}</td>
-                                                </tr>
-                                            </table>
+                                            <form action="/orders/addToCart">
+                                                <input type="hidden" name="inventoryId" value="${inventory.id}">
+                                                <table class="table table-striped border">
+                                                    <tr>
+                                                        <td>Inventory Id</td>
+                                                        <td>${inventory.id}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Product Name</td>
+                                                        <td>${inventory.productName}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Quantity</td>
+                                                        <td>${inventory.quantity}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Price</td>
+                                                        <td>${inventory.price}</td>
+                                                    </tr>
+                                                </table>
                                         </div>
                                         <div class="col-lg-4 col-xl-4">
                                             <table class="table table-striped border">
@@ -56,6 +58,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div>
+                                    <td><button value="${inv.id}" onclick="formSubmit()" type="submit"
+                                            class="btn btn-secondary">Add
+                                            to
+                                            Cart</button></td>
+                                </div>
+                                </form>
                             </section>
                         </div>
                     </div>

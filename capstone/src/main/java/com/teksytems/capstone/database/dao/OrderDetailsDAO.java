@@ -22,8 +22,8 @@ public interface OrderDetailsDAO extends JpaRepository<OrderDetails, Long>{
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM order_details WHERE order_id = :orderId AND inventory_id = :inventoryId ;", nativeQuery = true)
-    void removeFromCartByOrderIdAndInventoryId(Integer orderId, Integer inventoryId);
+    @Query(value = "DELETE FROM order_details WHERE inventory_id = :inventoryId ;", nativeQuery = true)
+    void deleteFromCart(Integer inventoryId);
 
     
 }

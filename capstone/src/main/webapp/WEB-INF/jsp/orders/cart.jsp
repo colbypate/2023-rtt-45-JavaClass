@@ -16,73 +16,67 @@
                                         background-color: rgba(255, 255, 255, 0.901);
                                     }
                                 </style>
-                                <section class="pt-5 bg-light-grey">
-                                    <div class="container text-end">
-                                        <div class="row justify-content-end">
-                                            <div class="col-4">
-                                                <form>
-                                                    <p class="fw-bold text-start mb-1">Search Inventory:</p>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="productName"
-                                                            placeholder="Product Name" aria-label="Product Name"
-                                                            value="${searchParam}">
-                                                    </div>
-                                                    <button class="btn btn-outline-secondary"
-                                                        id="search">Search</button>
-
-                                                </form>
-                                            </div>
+                                <c:if test="${!hasProducts}">
+                                    <section class="pt-5 pb-5 bg-dark-grey">
+                                        <div class="container text-center">
+                                            <img width="400px" height='500px'
+                                                src="https://www.shutterstock.com/image-vector/opened-empty-box-cute-frustrated-260nw-690994567.jpg">
+                                            <h3 style="margin-top: 25px;">Looks like you do not have anything in your
+                                                cart! <a href="/customer_search">Shop for Items</a></h3>
                                         </div>
-                                    </div>
-                                </section>
-                                <div class="container">
-                                    <div class="row justify-content-center">
-                                        <section class="pb-5 bg-dark-grey">
-                                            <center>
-                                                <h1 class="mb-5">Inventory</h1>
-                                            </center>
-                                            <div class="container text-center">
+                                    </section>
+                                </c:if>
+                                <c:if test="${hasProducts}">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <section class="pb-5 bg-dark-grey">
+                                                <center>
+                                                    <h1 class="mb-5">Cart</h1>
+                                                </center>
+                                                <div class="container text-center">
 
-                                                <h4 class="pb-2">${inventoryList.size()} Items</h4>
+                                                    <h4 class="pb-2">${productList.size()} Items</h4>
 
-                                                <table class="table table-striped border">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Product Name</th>
-                                                            <th scope="col">Quantity</th>
-                                                            <th scope="col">Price</th>
-                                                            <sec:authorize access="hasAnyAuthority('ADMIN')">
-                                                                <th scope="col">Edit</th>
-                                                            </sec:authorize>
-                                                            <th scope="col">Add To Cart</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <c:forEach items="${inventoryList}" var="inv">
+                                                    <table class="table table-striped border">
+                                                        <thead>
                                                             <tr>
-                                                                <td><a
-                                                                        href="/inventory/details/${inv.productName}">${inv.productName}</a>
-                                                                </td>
-                                                                <td>${inv.quantity}</td>
-                                                                <td>${inv.price}</td>
-                                                                <sec:authorize access="hasAnyAuthority('ADMIN')">
-                                                                    <td><a href="/inventory/edit/${inv.id}"
-                                                                            class="btn btn-primary">Edit</a></td>
-                                                                </sec:authorize>
-                                                                <td><a href="/orders/addtocart?inventoryId=${inventory.id}"
-                                                                        class="btn btn-primary btn-lg">Add To
-                                                                        Cart</a></td>
+                                                                <th scope="col">Product Name</th>
+                                                                <th scope="col">Price</th>
+                                                                <th scope="col">Quantity</th>
+                                                                <th scope="col">Delete From Cart</th>
                                                             </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach items="${productList}" var="inv">
+                                                                <tr>
+                                                                    <td>${inv.product_name}</td>
+                                                                    <td>${inv.price}</td>
+                                                                    <td>${inv.quantity}</td>
+
+                                                                    <td><a href="/orders/deleteFromCart?inventoryId=${inv.id}"
+                                                                            class="btn btn-primary btn-lg">Delete</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col col-3">
+                                                        <form action="/orders/submitOrder">
+
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Checkout</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                </c:if>
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
 
         </body>

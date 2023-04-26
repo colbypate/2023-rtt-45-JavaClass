@@ -17,7 +17,7 @@ public interface OrdersDAO extends JpaRepository<Orders, Long>{
     Orders findOrderById(Integer id);
 
     @Query("FROM Orders o WHERE o.status = 'Cart' AND o.userId = :userId ")
-    Orders findByStatusEqualsCartAndUserId(Integer userId);
+    Orders findOrderByStatusAndUserId(Integer userId);
 
     @Query("FROM Orders o WHERE o.status = 'Cart' AND o.userId = :userId ")
     List<Orders> findListByStatusEqualsCartAndUserId(Integer userId);

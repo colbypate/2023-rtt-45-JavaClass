@@ -58,33 +58,33 @@ public class OrderController {
     @Autowired
     private AuthenticatedUserService authenticatedUserService;
 
-    // @RequestMapping(value = "/search", method = RequestMethod.GET)
-    // public ModelAndView findOrdersBy(@RequestParam(required = false) Integer id) {
-    //     log.debug("In the orders search controller method with search = " + id);
-    //     // modifying viewName to reflect folder structure where employee-search is
-    //     ModelAndView response = new ModelAndView("orders/search");
-    //     //Added this user so that i can display the user name that made each order(may not work need to check)
-    //     User user = authenticatedUserService.loadCurrentUser();
-    //     List<Orders> orders = new ArrayList<>();
-    //     orders = ordersDAO.getAllOrders();
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView findOrdersBy(@RequestParam(required = false) Integer id) {
+        log.debug("In the orders search controller method with search = " + id);
+        // modifying viewName to reflect folder structure where employee-search is
+        ModelAndView response = new ModelAndView("orders/search");
+        //Added this user so that i can display the user name that made each order(may not work need to check)
+        User user = authenticatedUserService.loadCurrentUser();
+        List<Orders> orders = new ArrayList<>();
+        orders = ordersDAO.getAllOrders();
 
-    //     if (id != null) {
-    //         log.debug("Searching for orders by id = " + id);
-    //         Orders order = ordersDAO.findOrderById(id);
-    //         if (order != null) {
-    //             orders.add(order);
-    //         }
-    //     }
+        if (id != null) {
+            log.debug("Searching for orders by id = " + id);
+            Orders order = ordersDAO.findOrderById(id);
+            if (order != null) {
+                orders.add(order);
+            }
+        }
 
-    //     response.addObject("orderList", orders);
-    //     response.addObject("user", user);
+        response.addObject("orderList", orders);
+        response.addObject("user", user);
 
-    //     return response;
-    // }
+        return response;
+    }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView findInventoriesByProductName(@RequestParam(required = false) String productName) {
-        log.debug("In the Inventory search controller method with search = " + productName);
+        log.debug("In the Order search controller method with search = " + productName);
         // modifying viewName to reflect folder structure where employee-search is
         ModelAndView response = new ModelAndView("orders/create");
 
@@ -120,25 +120,40 @@ public class OrderController {
     }
 
 
-    // @GetMapping("/create")
-    // public ModelAndView register() {
-    //     ModelAndView response = new ModelAndView("orders/create");
-    //     log.debug("In user controller - create user");
 
-    //     return response;
-    // }
+    @GetMapping("/viewCart")
+    public ModelAndView viewCart() {
+        log.debug("In the view cart controller method");
+        ModelAndView response = new ModelAndView("orders/cart");
+
+        User user = authenticatedUserService.loadCurrentUser();
+        //Order order = new Order();
+        //order.setUser(user);
+
+        List<Map<String,Object>> productList = ordersDAO.findCartProductsByUserId(user.getId());
+
+        boolean hasProduct = false;
+        if(!productList.isEmpty()){
+            hasProduct = true;
+        }
+        response.addObject("hasProducts", hasProduct);
+
+        response.addObject("productList", productList);
+        return response;
+    }
 
 
     @RequestMapping(value = {"/addToCart"}, method = RequestMethod.GET)
-    public ModelAndView addtocart(@RequestParam(required = false) Integer id) {
+    public ModelAndView addtocart(@RequestParam(required = false) Integer inventoryId) {
         log.debug("In the addtocart controller method.");
-        ModelAndView response = new ModelAndView("redirect:/orders/create/" + id);
+        ModelAndView response = new ModelAndView("redirect:/orders/create");
+        // "redirect:/orders/create/" + id
 
-        Inventory inventory = inventoryDAO.findById(id);
+        Inventory inventory = inventoryDAO.findById(inventoryId);
 
         User user = authenticatedUserService.loadCurrentUser();
 
-        Orders order = ordersDAO.findByStatusEqualsCartAndUserId(user.getId());
+        Orders order = ordersDAO.findOrderByStatusAndUserId(user.getId());
 
         if (order == null) {
 
@@ -151,7 +166,6 @@ public class OrderController {
 
         OrderDetails orderDetails = orderDetailsDAO.findByOrderIdAndInventoryId(order.getId(), inventory.getId());
 
-        // 6) if it exists then increment the quantity by 1 otherwise create it with quantity = 1
         if (orderDetails == null) {
             orderDetails = new OrderDetails();
             orderDetails.setQuantity(1);
@@ -165,83 +179,40 @@ public class OrderController {
         return response;
     }
 
-    @RequestMapping(value = {"/removefromcart"}, method = RequestMethod.GET)
-    // 1) incoming argument to controller is the product_id
-    public ModelAndView removefromcart(@RequestParam(required = true) Integer id) {
-        log.debug("In the removefromcart controller method.");
-        ModelAndView response = new ModelAndView();
+    @RequestMapping(value ={"/submitOrder"}, method = RequestMethod.GET)
+    public ModelAndView checkout() {
+        log.debug("In the submit order method");
 
-        Inventory inventory = inventoryDAO.findById(id);
+        ModelAndView response = new ModelAndView("redirect:/dashboard");
 
         User user = authenticatedUserService.loadCurrentUser();
 
-        // does making a new orders here wipe whatever was previously established?
-        // 3) query for an order where status = "cart" and user_id = "logged in user id"
-        Orders order = ordersDAO.findByStatusEqualsCartAndUserId(user.getId());
-
-        // 5) use the product_id and the order id to create query for the order product
-        OrderDetails orderDetails = orderDetailsDAO.findByOrderIdAndInventoryId(order.getId(), inventory.getId());
-
-        orderDetailsDAO.removeFromCartByOrderIdAndInventoryId(order.getId(), inventory.getId());
-
-        orderDetailsDAO.save(orderDetails);
-        response.setViewName("redirect:/order/viewcart");
-        return response;
-    }
-
-    @RequestMapping(value = {"/viewcart"}, method = RequestMethod.GET)
-    public ModelAndView viewcart() {
-        log.debug("In the viewcart controller method.");
-        ModelAndView response = new ModelAndView("orders/viewcart");
-
-        User user = authenticatedUserService.loadCurrentUser();
-
-        List<Map<String,Object>> orderDetails = ordersDAO.findCartProductsByUserId(user.getId());
-
-        response.addObject("orderDetailsList", orderDetails);
-
-        return response;
-    }
-
-    @RequestMapping(value = {"/submitOrder"}, method = RequestMethod.GET)
-    public ModelAndView submitOrder() {
-        log.debug("In the submitOrder controller method.");
-        ModelAndView response = new ModelAndView();
-
-        User user = authenticatedUserService.loadCurrentUser();
-
-        Orders order = ordersDAO.findByStatusEqualsCartAndUserId(user.getId());
-
+        Orders order = ordersDAO.findOrderByStatusAndUserId(user.getId());
         order.setStatus("Complete");
         ordersDAO.save(order);
 
-        response.setViewName("redirect:/orders/ordercomplete");
         return response;
+
 
     }
 
-    @RequestMapping(value = {"/ordercomplete"}, method = RequestMethod.GET)
-    public ModelAndView ordercomplete() {
-        log.debug("In the ordercomplete controller method.");
-        ModelAndView response = new ModelAndView("orders/ordercomplete");
+    @RequestMapping(value ={"/deleteFromCart"}, method = RequestMethod.GET)
+    public ModelAndView productSearch(@RequestParam(required = true) Integer inventoryId) {
+        log.debug("In the delete from cart method");
+
+
+        ModelAndView response = new ModelAndView("redirect:/orders/viewCart");
+
+        Inventory inventory = inventoryDAO.findById(inventoryId);
+
+        orderDetailsDAO.deleteFromCart(inventoryId);
+        response.addObject("inventory", inventory);
         return response;
+
+
     }
 
-    @GetMapping("/pastorders")
-    public ModelAndView pastorders() {
-        ModelAndView response = new ModelAndView("orders/pastorders");
-        User user = authenticatedUserService.loadCurrentUser();
 
-
-        log.debug("In pastorders controller method");
-        List<Map<String,Object>> order = ordersDAO.findPastOrdersByUserId(user.getId());
-
-        // this allows for the employee details to appear on the details page
-        response.addObject("order", order);
-
-        log.debug(order + "");
-        return response;
-    }
 
     }
 

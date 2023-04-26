@@ -52,9 +52,6 @@
                                                                 <th scope="col">Product Name</th>
                                                                 <th scope="col">Quantity</th>
                                                                 <th scope="col">Price</th>
-                                                                <sec:authorize access="hasAnyAuthority('ADMIN')">
-                                                                    <th scope="col">Edit</th>
-                                                                </sec:authorize>
                                                                 <th scope="col">Add To Cart</th>
                                                             </tr>
                                                         </thead>
@@ -70,13 +67,13 @@
                                                                         <td><a href="/inventory/edit/${inv.id}"
                                                                                 class="btn btn-primary">Edit</a></td>
                                                                     </sec:authorize> -->
-                                                                    <!-- <td><a href="/orders/addToCart?inventoryId=${inv.id}"
+                                                                    <td><a href="/inventory/details/${inv.productName}"
                                                                             class="btn btn-primary btn-lg">Add To
-                                                                            Cart</a></td> -->
-                                                                    <td><button value="${inv.id}" onclick="formSubmit()"
+                                                                            Cart</a></td>
+                                                                    <!-- <td><button value="${inv.id}" onclick="formSubmit()"
                                                                             type="submit" class="btn btn-secondary">Add
                                                                             to
-                                                                            Cart</button></td>
+                                                                            Cart</button></td> -->
                                                                 </tr>
                                                             </c:forEach>
                                                         </tbody>
