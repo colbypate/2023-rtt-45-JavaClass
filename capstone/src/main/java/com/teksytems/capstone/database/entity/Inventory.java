@@ -28,7 +28,7 @@ public class Inventory {
     private Integer quantity;
 
     @Column(name = "price", columnDefinition = "decimal", precision = 6, scale = 2)
-    private BigDecimal price;
+    private Double price;
 
     @Column(name = "photo_url")
     private String photoURL;

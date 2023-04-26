@@ -2,18 +2,23 @@ package com.teksytems.capstone.controller;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teksytems.capstone.database.dao.InventoryDAO;
 import com.teksytems.capstone.database.dao.UserDAO;
 import com.teksytems.capstone.database.entity.Inventory;
+import com.teksytems.capstone.formbeans.InventoryFormBean;
 import com.teksytems.capstone.security.AuthenticatedUserService;
 
 import io.micrometer.common.util.StringUtils;
@@ -25,7 +30,7 @@ public class InventoryController {
 
     @Autowired
     private AuthenticatedUserService authenticatedUserService;
-    
+
     @Autowired
     private UserDAO userDAO;
 
@@ -33,8 +38,8 @@ public class InventoryController {
     private InventoryDAO inventoryDAO;
 
     @GetMapping("/allInventory")
-    public ModelAndView  inventory(){
-        ModelAndView response = new ModelAndView("/inventory/inventory");
+    public ModelAndView inventory() {
+        ModelAndView response = new ModelAndView("inventory/inventory");
 
         log.debug("In inventory controller method:");
         List<Inventory> inventory = inventoryDAO.getAllInventories();
@@ -74,11 +79,11 @@ public class InventoryController {
         List<Inventory> inventory = new ArrayList<>();
         inventory = inventoryDAO.findInventoryByProductName(productName);
 
-        if(!StringUtils.isEmpty(productName)){
+        if (!StringUtils.isEmpty(productName)) {
             log.debug("first name and last name fields have a value");
             inventory = inventoryDAO.findInventoryByProductName(productName);
         }
-        if(StringUtils.isEmpty(productName)){
+        if (StringUtils.isEmpty(productName)) {
             log.debug("last name field has a value and first name is  empty");
             inventory = inventoryDAO.getAllInventories();
         }
@@ -102,5 +107,66 @@ public class InventoryController {
         return response;
     }
 
-    
+    // @GetMapping("/edit")
+    // public ModelAndView editInventory() {
+    //     ModelAndView response = new ModelAndView("inventory/details");
+
+    //     log.debug("In inventory detail controller method with name = " + inventoryId);
+    //     Inventory inventory = inventoryDAO.findById(inventoryId);
+
+    //     response.addObject("inventory", inventory);
+
+    //     log.debug(inventory + "");
+    //     return response;
+    // }
+
+    @GetMapping("/edit/{inventoryId}")
+    public ModelAndView edit(@PathVariable Integer inventoryId) {
+        ModelAndView response = new ModelAndView("inventory/edit");
+
+        log.debug("In inventory edit controller method with name = " + inventoryId);
+        Inventory inventory = inventoryDAO.findById(inventoryId);
+        InventoryFormBean form = new InventoryFormBean();
+
+        form.setId(inventory.getId());
+        form.setProductName(inventory.getProductName());
+        form.setQuantity(inventory.getQuantity());
+        form.setPrice(inventory.getPrice());
+        form.setPhotoURL(inventory.getPhotoURL());
+
+        response.addObject("form", form);
+        return response;
+    }
+
+    @PostMapping("/editSubmit")
+    public ModelAndView editSubmit(InventoryFormBean form) {
+        ModelAndView response = new ModelAndView("inventory/edit");
+
+        log.debug("In the inventory controller - edit submit method");
+        log.debug(form.toString());
+
+        Inventory inventory = new Inventory();
+
+
+        if (form.getId() != null && form.getId() > 0) {
+            inventory = inventoryDAO.findById(form.getId());
+        }
+
+        inventory.setId(form.getId());
+        inventory.setProductName(form.getProductName());
+        inventory.setQuantity(form.getQuantity());
+        inventory.setPrice(form.getPrice());
+        inventory.setPhotoURL(form.getPhotoURL());
+
+
+        inventoryDAO.save(inventory);
+
+        //now we add the populated form back to the model so when page can display itself again
+        response.setViewName("redirect:/inventory/edit/" + inventory.getId());
+
+
+        return response;
+    }
+
+
 }

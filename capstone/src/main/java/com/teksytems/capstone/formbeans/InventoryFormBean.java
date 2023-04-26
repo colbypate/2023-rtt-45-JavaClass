@@ -13,7 +13,7 @@ public class InventoryFormBean {
     private Integer id;
     private String productName;
     private Integer quantity;
-    private BigDecimal price;
+    private Double price;
     private String photoURL;
     
 }
