@@ -21,6 +21,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                                         <form id="form" action="/user/registerSubmit" method="POST">
+                                        <input type="hidden" name="id" value="${form.id}">
                                             <div class="row justify-content-center">
                                                 <div class="mb-3 col-8 col-xl-5">
                                                     <label for="firstName" class="form-label">First Name</label>

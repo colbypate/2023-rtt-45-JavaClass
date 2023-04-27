@@ -29,19 +29,8 @@
                                                         name="username" aria-describedby="emailHelp">
                                                     <div id="emailHelp" class="form-text">Company Email Address</div>
                                                 </div>
-
-                                                <!-- <div class="col-4 mb-3">
-                                                    <label for="countryInput" class="form-label">Job Title</label>
-                                                    <select id="countryInput" class="form-select"
-                                                        aria-label="Default select example">
-                                                        <option selected>Job</option>
-                                                        <option value="Manager">Manager</option>
-                                                        <option value="Sales">Sales</option>
-                                                        <option value="Employee">Employee</option>
-                                                        <option value="Admin">Admin</option>
-                                                    </select>
-                                                </div> -->
                                             </div>
+
 
                                             <div class="row justify-content-center">
                                                 <div class="mb-3 col-md-12 col-sm-12 col-xl-10">

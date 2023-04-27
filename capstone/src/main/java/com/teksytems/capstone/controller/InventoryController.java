@@ -139,7 +139,7 @@ public class InventoryController {
     }
 
     @PostMapping("/editSubmit")
-    public ModelAndView editSubmit(InventoryFormBean form) {
+    public ModelAndView editSubmit(InventoryFormBean form) throws IOException {
         ModelAndView response = new ModelAndView("inventory/edit");
 
         log.debug("In the inventory controller - edit submit method");
@@ -162,7 +162,7 @@ public class InventoryController {
         inventoryDAO.save(inventory);
 
         //now we add the populated form back to the model so when page can display itself again
-        response.setViewName("redirect:/inventory/edit/" + inventory.getId());
+        response.setViewName("redirect:/inventory/search");
 
 
         return response;

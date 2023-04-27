@@ -20,9 +20,8 @@
                                     <section class="pt-5 pb-5 bg-dark-grey">
                                         <div class="container text-center">
                                             <img width="400px" height='500px'
-                                                src="https://www.shutterstock.com/image-vector/opened-empty-box-cute-frustrated-260nw-690994567.jpg">
-                                            <h3 style="margin-top: 25px;">Looks like you do not have anything in your
-                                                cart! <a href="/customer_search">Shop for Items</a></h3>
+                                                src="https://z0sqrs-a.akamaihd.net/4566_storetheme/Template-Assets/images/empty-cart.svg">
+                                            <h3 style="margin-top: 25px;">Looks like your cart is empty! <a href="/inventory/search">Add Items to Order</a></h3>
                                         </div>
                                     </section>
                                 </c:if>

@@ -52,7 +52,7 @@
                                         <div class="col-lg-4 col-xl-4">
                                             <table class="table table-striped border">
                                                 <h3 class="bg-dark text-light">Change inventory image:</h3>
-                                                <input type="file" name="photoURL" class="form-control " id="photo_url"
+                                                <input type="text" name="photoURL" class="form-control " id="photo_url"
                                                     aria-describedby="fileHelp" />
 
                                                 <tr>
@@ -70,7 +70,7 @@
                                         <button type="submit" id="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                     <div class="col-3 col-md-2 col-xl-1">
-                                        <button id="cancel-btn" class="btn btn-secondary" type="button">Clear</button>
+                                        <button id="cancel-btn" class="btn btn-secondary" type="button">Cancel</button>
                                     </div>
                                 </div>
                                 </form>

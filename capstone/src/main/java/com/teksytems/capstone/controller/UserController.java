@@ -38,7 +38,7 @@ public class UserController {
     private UserDAO userDAO;
 
     @Autowired
-    private UserRolesDAO userRoleDAO;
+    private UserRolesDAO userRolesDAO;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -48,13 +48,13 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/details")
-    public ModelAndView detail() { 
-      
+    public ModelAndView detail() {
+
         ModelAndView response = new ModelAndView("user/details");
-        
+
         User user = authenticatedUserService.loadCurrentUser();
         log.debug("In user detail controller method with id = " + user.getId());
-  
+
 
         response.addObject("user", user);
 
@@ -65,7 +65,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView employeeFirstNameSearch(@RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
-        log.debug("In the user search controller method with search = " + firstName +" lastname: " + lastName);
+        log.debug("In the user search controller method with search = " + firstName + " lastname: " + lastName);
         // modifying viewName to reflect folder structure where employee-search is
         ModelAndView response = new ModelAndView("user/search");
 
@@ -73,15 +73,15 @@ public class UserController {
 
         users = userDAO.getAllUsers();
 
-        if(!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)){
+        if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
             log.debug("first name and last name fields have a value");
             users = userDAO.findByFirstNameContainingAndLastNameContainingIgnoreCase(firstName, lastName);
         }
-        if(!StringUtils.isEmpty(firstName) && StringUtils.isEmpty(lastName)){
+        if (!StringUtils.isEmpty(firstName) && StringUtils.isEmpty(lastName)) {
             log.debug("first name field has a value and last name is empty");
             users = userDAO.findByFirstNameContainingIgnoreCase(firstName);
         }
-        if(StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)){
+        if (StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
             log.debug("last name field has a value and first name is  empty");
             users = userDAO.findByLastNameContainingIgnoreCase(lastName);
         }
@@ -94,7 +94,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value="/edit{id}", method=RequestMethod.GET)
+    @RequestMapping(value = "/edit{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable Integer id) {
         ModelAndView response = new ModelAndView("user/register");
 
@@ -118,14 +118,13 @@ public class UserController {
         ModelAndView response = new ModelAndView("user/register");
         log.debug("In the register user controller post method");
 
-        response.addObject("form", form);
 
-        if (StringUtils.equals(form.getPassword(), form.getConfirmPassword()) == false){
+        if (StringUtils.equals(form.getPassword(), form.getConfirmPassword()) == false) {
             bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "Passwords do not match");
         }
 
-        if(bindingResult.hasErrors()){
-            for ( FieldError error : bindingResult.getFieldErrors()){
+        if (bindingResult.hasErrors()) {
+            for (FieldError error : bindingResult.getFieldErrors()) {
                 log.debug("Validation Error on field: " + error.getField());
 
                 log.debug("Validation Error Message: " + error.getDefaultMessage());
@@ -138,6 +137,7 @@ public class UserController {
 
         // first we create our user
         User user = new User();
+//        user.setId(form.getId());
         user.setEmail(form.getEmail());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
@@ -156,18 +156,20 @@ public class UserController {
         // we are going to hard code the default user role to be "USER"
         userRole.setRoleName("USER");
         // so when we go to set the user id FK on the user role entity the user id has been populated already.
+
         userRole.setUserId(user.getId());
 
-        userRoleDAO.save(userRole);
+        userRolesDAO.create(user.getId());
 
         // very important that this line of code is after both the user and the user role is saved to the database
         // authenticate the user that was just created
         //authenticatedUserService.changeLoggedInUsername(session, form.getEmail(), form.getPassword());
+        response.addObject("form", form);
         response.addObject("success", true);
 
         log.debug(form.toString());
 
         return response;
     }
-    
+
 }

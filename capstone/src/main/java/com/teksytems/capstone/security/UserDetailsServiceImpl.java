@@ -19,22 +19,21 @@ import com.teksytems.capstone.database.entity.User;
 import com.teksytems.capstone.database.entity.UserRoles;
 
 
-
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserDAO userDAO;
 
     @Autowired
-    private UserRolesDAO userRoleDAO;
+    private UserRolesDAO userRolesDAO;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDAO.findByEmail(username);
 
-        if(user == null){
-            throw new UsernameNotFoundException("Username '"+ username + "' not found in database");
+        if (user == null) {
+            throw new UsernameNotFoundException("Username '" + username + "' not found in database");
         }
 
 
@@ -44,14 +43,14 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
 
-        List<UserRoles> userRoles = userRoleDAO.findByUserId(user.getId());
+        List<UserRoles> userRoles = userRolesDAO.findByUserId(user.getId());
         Collection<? extends GrantedAuthority> springRoles = buildGrantAuthorities(userRoles);
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), 
-                            accountIsEnabled, accountNonExpired, credentialsNonExpired, accountNonLocked, springRoles);
-                
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                accountIsEnabled, accountNonExpired, credentialsNonExpired, accountNonLocked, springRoles);
+
     }
-    
+
     private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<UserRoles> userRoles) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
@@ -61,5 +60,5 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
         return authorities;
     }
-    
+
 }

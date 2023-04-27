@@ -22,11 +22,6 @@
                                     </center>
                                     <div class="row">
                                         <div class="col-lg-8 col-xl-8">
-                                            <div class="row mb-2">
-                                                <div class="col-12 text-start">
-                                                    <button type="button" class="btn btn-primary">Edit</button>
-                                                </div>
-                                            </div>
                                             <form action="/orders/addToCart">
                                                 <input type="hidden" name="inventoryId" value="${inventory.id}">
                                                 <table class="table table-striped border">
