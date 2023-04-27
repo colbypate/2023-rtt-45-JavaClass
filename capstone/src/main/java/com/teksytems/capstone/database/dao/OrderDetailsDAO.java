@@ -10,20 +10,22 @@ import com.teksytems.capstone.database.entity.OrderDetails;
 import com.teksytems.capstone.database.entity.Orders;
 
 
-
 import java.util.*;
 
-public interface OrderDetailsDAO extends JpaRepository<OrderDetails, Long>{
+public interface OrderDetailsDAO extends JpaRepository<OrderDetails, Long> {
 
     OrderDetails findById(Integer id);
 
     @Query(value = "SELECT * FROM order_details od WHERE od.order_id = :orderId AND od.inventory_id = :inventoryId ;", nativeQuery = true)
     OrderDetails findByOrderIdAndInventoryId(Integer orderId, Integer inventoryId);
 
+    @Query(value = "SELECT * FROM order_details od WHERE od.order_id = :orderId ;", nativeQuery = true)
+    List<OrderDetails> findByOrderId(Integer orderId);
+
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM order_details WHERE inventory_id = :inventoryId ;", nativeQuery = true)
     void deleteFromCart(Integer inventoryId);
 
-    
+
 }

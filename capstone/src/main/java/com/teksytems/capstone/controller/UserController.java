@@ -157,9 +157,9 @@ public class UserController {
         userRole.setRoleName("USER");
         // so when we go to set the user id FK on the user role entity the user id has been populated already.
 
-        userRole.setUserId(user.getId());
+        userRole.setUser(user);
 
-        userRolesDAO.create(user.getId());
+        userRolesDAO.save(userRole);
 
         // very important that this line of code is after both the user and the user role is saved to the database
         // authenticate the user that was just created

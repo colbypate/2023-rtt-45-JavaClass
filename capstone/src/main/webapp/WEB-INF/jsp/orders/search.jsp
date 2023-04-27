@@ -24,7 +24,7 @@
                                                     <p class="fw-bold text-start mb-1">Search Orders:</p>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name="id"
-                                                            placeholder="Product Name" aria-label="id" value="${id}">
+                                                            placeholder="Order ID" aria-label="id" value="${id}">
                                                     </div>
                                                     <button class="btn btn-outline-secondary"
                                                         id="search">Search</button>
@@ -50,6 +50,7 @@
                                                             <th scope="col">Id</th>
                                                             <th scope="col">Order Date</th>
                                                             <th scope="col">Orderer</th>
+                                                            <th scope="col">Status</th>
                                                             <th scope="col">More Info</th>
                                                         </tr>
                                                     </thead>
@@ -60,7 +61,8 @@
                                                                 <td>${ord.orderDate}</td>
                                                                 <td>${ord.userId}</td>
                                                                 <!-- <td>${orrd.totalPrice}</td> -->
-                                                                <td><a href="/inventory/edit/${inv.id}"
+                                                                <td>${ord.status}</td>
+                                                                <td><a href="/orders/orderDetails/${ord.id}"
                                                                         class="btn btn-primary">Details</a></td>
                                                             </tr>
                                                         </c:forEach>

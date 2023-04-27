@@ -59,25 +59,25 @@ public class OrderController {
     private AuthenticatedUserService authenticatedUserService;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView findOrdersBy(@RequestParam(required = false) Integer id) {
+    public ModelAndView findOrderById(@RequestParam(required = false) Integer id) {
         log.debug("In the orders search controller method with search = " + id);
         // modifying viewName to reflect folder structure where employee-search is
         ModelAndView response = new ModelAndView("orders/search");
         //Added this user so that i can display the user name that made each order(may not work need to check)
-        User user = authenticatedUserService.loadCurrentUser();
         List<Orders> orders = new ArrayList<>();
-        orders = ordersDAO.getAllOrders();
+        orders = ordersDAO.findOrderById(id);
 
         if (id != null) {
             log.debug("Searching for orders by id = " + id);
-            Orders order = ordersDAO.findOrderById(id);
-            if (order != null) {
-                orders.add(order);
-            }
+            orders = ordersDAO.findOrderById(id);
+        }
+        if (id == null) {
+            orders = ordersDAO.getAllOrders();
         }
 
+
         response.addObject("orderList", orders);
-        response.addObject("user", user);
+        response.addObject("orderId", id);
 
         return response;
     }
@@ -91,11 +91,11 @@ public class OrderController {
         List<Inventory> inventory = new ArrayList<>();
         inventory = inventoryDAO.findInventoryByProductName(productName);
 
-        if(!StringUtils.isEmpty(productName)){
+        if (!StringUtils.isEmpty(productName)) {
             log.debug("first name and last name fields have a value");
             inventory = inventoryDAO.findInventoryByProductName(productName);
         }
-        if(StringUtils.isEmpty(productName)){
+        if (StringUtils.isEmpty(productName)) {
             log.debug("last name field has a value and first name is  empty");
             inventory = inventoryDAO.getAllInventories();
         }
@@ -107,18 +107,17 @@ public class OrderController {
     }
 
     @GetMapping("/details/{id}")
-    public ModelAndView detail(@PathVariable Integer id) {
+    public ModelAndView details(@PathVariable Integer id) {
         ModelAndView response = new ModelAndView("orders/details");
 
         log.debug("In employee detail controller method with id = " + id);
-        Orders orders = ordersDAO.findOrderById(id);
+        List<Orders> orders = ordersDAO.findOrderById(id);
 
         response.addObject("orders", orders);
 
         log.debug(orders + "");
         return response;
     }
-
 
 
     @GetMapping("/viewCart")
@@ -130,10 +129,10 @@ public class OrderController {
         //Order order = new Order();
         //order.setUser(user);
 
-        List<Map<String,Object>> productList = ordersDAO.findCartProductsByUserId(user.getId());
+        List<Map<String, Object>> productList = ordersDAO.findCartProductsByUserId(user.getId());
 
         boolean hasProduct = false;
-        if(!productList.isEmpty()){
+        if (!productList.isEmpty()) {
             hasProduct = true;
         }
         response.addObject("hasProducts", hasProduct);
@@ -179,7 +178,7 @@ public class OrderController {
         return response;
     }
 
-    @RequestMapping(value ={"/submitOrder"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/submitOrder"}, method = RequestMethod.GET)
     public ModelAndView checkout() {
         log.debug("In the submit order method");
 
@@ -196,7 +195,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value ={"/deleteFromCart"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/deleteFromCart"}, method = RequestMethod.GET)
     public ModelAndView productSearch(@RequestParam(required = true) Integer inventoryId) {
         log.debug("In the delete from cart method");
 
@@ -212,8 +211,30 @@ public class OrderController {
 
     }
 
+    @RequestMapping(value = "/orderDetails/{id}", method = RequestMethod.GET)
+    public ModelAndView findOrderDetails(@PathVariable Integer id) {
+        log.debug("In the orderDetails controller method with search");
+        ModelAndView response = new ModelAndView("orders/details");
 
 
+        List<OrderDetails> orderDetails = new ArrayList<>();
+        orderDetails = orderDetailsDAO.findByOrderId(id);
+
+        if (id != null) {
+            log.debug("Searching for orders by id = " + id);
+            OrderDetails orderDetail = orderDetailsDAO.findById(id);
+            if (orderDetail != null) {
+                orderDetails.add(orderDetail);
+            }
+        }
+
+        response.addObject("orderDetailsList", orderDetails);
+        //response.addObject("orderId", id);
+
+        return response;
     }
+
+
+}
 
    
