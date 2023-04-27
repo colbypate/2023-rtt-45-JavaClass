@@ -1,5 +1,8 @@
 package com.teksytems.capstone.controller;
 
+import com.teksytems.capstone.formbeans.UserFormBean;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -11,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -140,6 +144,55 @@ public class InventoryController {
 
     @PostMapping("/editSubmit")
     public ModelAndView editSubmit(InventoryFormBean form) throws IOException {
+        ModelAndView response = new ModelAndView("inventory/edit");
+
+        log.debug("In the inventory controller - edit submit method");
+        log.debug(form.toString());
+
+        Inventory inventory = new Inventory();
+
+
+        if (form.getId() != null && form.getId() > 0) {
+            inventory = inventoryDAO.findById(form.getId());
+        }
+
+        inventory.setId(form.getId());
+        inventory.setProductName(form.getProductName());
+        inventory.setQuantity(form.getQuantity());
+        inventory.setPrice(form.getPrice());
+        inventory.setPhotoURL(form.getPhotoURL());
+
+
+        inventoryDAO.save(inventory);
+
+        //now we add the populated form back to the model so when page can display itself again
+        response.setViewName("redirect:/inventory/search");
+
+
+        return response;
+    }
+
+    @GetMapping("/create")
+    public ModelAndView create(@Valid InventoryFormBean form, BindingResult bindingResult, HttpSession session) {
+        ModelAndView response = new ModelAndView("inventory/create");
+
+        //log.debug("In inventory create controller method with name = " + inventoryId);
+        //Inventory inventory = inventoryDAO.findById(inventoryId);
+        Inventory inventory = new Inventory();
+
+        inventory.setId(form.getId());
+        inventory.setProductName(form.getProductName());
+        inventory.setQuantity(form.getQuantity());
+        inventory.setPrice(form.getPrice());
+        inventory.setPhotoURL(form.getPhotoURL());
+
+        response.addObject("form", form);
+        
+        return response;
+    }
+
+    @PostMapping("/createSubmit")
+    public ModelAndView createSubmit(InventoryFormBean form) throws IOException {
         ModelAndView response = new ModelAndView("inventory/edit");
 
         log.debug("In the inventory controller - edit submit method");

@@ -36,9 +36,21 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only"></span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/inventory/search">Inventory</a>
-                    </li>
+                    <div class="dropdown">
+                            <a class="btn dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Inventory
+                            </a>
+                            <ul class="dropdown-menu" style="margin-right: auto;" aria-labelledby="dropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="/inventory/search">View Inventory</a>
+                                </li>
+                                <sec:authorize access="hasAnyAuthority('ADMIN')">
+                                <li>
+                                    <a class="dropdown-item" href="/inventory/create">Create New Product</a>
+                                </li>
+                        </sec:authorize>
+                    </div>
                     <div class="dropdown">
                         <sec:authorize access="isAuthenticated()">
                             <a class="btn dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink"
