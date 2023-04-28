@@ -171,11 +171,14 @@ public class OrderController {
             orderDetails.setInventory(inventory);
             orderDetails.setOrders(order);
             orderDetails.setTotalPrice(inventory.getPrice());
+            inventory.setQuantity(inventory.getQuantity() + orderDetails.getQuantity());
         } else {
             orderDetails.setQuantity(orderDetails.getQuantity() + 1);
             orderDetails.setTotalPrice(inventory.getPrice()*orderDetails.getQuantity());
+            inventory.setQuantity(inventory.getQuantity() + 1);
         }
         orderDetailsDAO.save(orderDetails);
+        inventoryDAO.save(inventory);
         // response.setViewName("redirect:/orders/viewcart");
         return response;
     }
@@ -204,8 +207,15 @@ public class OrderController {
 
         ModelAndView response = new ModelAndView("redirect:/orders/viewCart");
 
-        Inventory inventory = inventoryDAO.findById(inventoryId);
+        User user = authenticatedUserService.loadCurrentUser();
 
+        Inventory inventory = inventoryDAO.findById(inventoryId);
+        Orders order = ordersDAO.findOrderByStatusAndUserId(user.getId());
+        OrderDetails orderDetails = orderDetailsDAO.findByOrderIdAndInventoryId(order.getId(), inventoryId);
+
+        inventory.setQuantity(inventory.getQuantity() - orderDetails.getQuantity() );
+        
+        inventoryDAO.save(inventory);
         orderDetailsDAO.deleteFromCart(inventoryId);
         response.addObject("inventory", inventory);
         return response;
