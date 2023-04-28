@@ -41,7 +41,19 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row justify-content-center">
+                                            <div style="text-align: center;"> <label>
+                                                    Do you want us to remember you?
+                                                </label>
+                                                <br>
+                                                <input type="radio" id="yes" name="remember" value="yes">
+                                                <label for="yes">Yes</label><br>
+                                                <input type="radio" id="no" name="remember" value="no">
+                                                <label for="no">No</label><br>
+                                            </div>
+
+
+
+                                            <div class="mt-4 row justify-content-center">
                                                 <div class="col col-3">
                                                     <button type="submit" id="create_btn"
                                                         class="btn btn-primary">Login</button>

@@ -170,8 +170,10 @@ public class OrderController {
             orderDetails.setQuantity(1);
             orderDetails.setInventory(inventory);
             orderDetails.setOrders(order);
+            orderDetails.setTotalPrice(inventory.getPrice());
         } else {
             orderDetails.setQuantity(orderDetails.getQuantity() + 1);
+            orderDetails.setTotalPrice(inventory.getPrice()*orderDetails.getQuantity());
         }
         orderDetailsDAO.save(orderDetails);
         // response.setViewName("redirect:/orders/viewcart");

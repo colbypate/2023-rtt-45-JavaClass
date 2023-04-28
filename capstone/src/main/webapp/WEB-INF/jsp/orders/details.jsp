@@ -43,7 +43,7 @@
                                                                 <td>${ord.id}</td>
                                                                 <td>${ord.inventoryId}</td>
                                                                 <td>${ord.quantity}</td>
-                                                                <td>BLANK</td>
+                                                                <td>${ord.totalPrice}</td>
 
                                                             </tr>
                                                         </c:forEach>
