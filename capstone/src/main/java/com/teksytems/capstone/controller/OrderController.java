@@ -92,11 +92,9 @@ public class OrderController {
         inventory = inventoryDAO.findInventoryByProductName(productName);
 
         if (!StringUtils.isEmpty(productName)) {
-            log.debug("first name and last name fields have a value");
             inventory = inventoryDAO.findInventoryByProductName(productName);
         }
         if (StringUtils.isEmpty(productName)) {
-            log.debug("last name field has a value and first name is  empty");
             inventory = inventoryDAO.getAllInventories();
         }
 

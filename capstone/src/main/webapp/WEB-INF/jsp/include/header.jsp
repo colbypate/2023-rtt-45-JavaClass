@@ -70,9 +70,22 @@
                                     </li>
                             </sec:authorize>
                         </div>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/sales">Sales</a>
-                        </li>
+                        <div class="dropdown">
+                            <sec:authorize access="isAuthenticated()">
+                                <a class="btn dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Sales
+                                </a>
+                                <ul class="dropdown-menu" style="margin-right: auto;"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <a class="dropdown-item" href="/sales/search">View Sales</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/sales/create">Create Sale</a>
+                                    </li>
+                            </sec:authorize>
+                        </div>
                         <div class="dropdown">
                             <sec:authorize access="hasAnyAuthority('ADMIN')">
                                 <a class="btn dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink"
@@ -92,16 +105,18 @@
                     </ul>
                 </div>
                 </ul>
-                <div class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/orders/viewCart">Cart</a>
-                    </li>
-                </div>
-                <div class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/sales/viewInvoice">Invoice</a>
-                    </li>
-                </div>
+                <sec:authorize access="isAuthenticated()">
+                    <div class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/orders/viewCart">Cart</a>
+                        </li>
+                    </div>
+                    <div class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sales/viewInvoice">Invoice</a>
+                        </li>
+                    </div>
+                </sec:authorize>
                 <div class="navbar-nav ms-auto">
                     <div>
                         <sec:authorize access="isAuthenticated()">

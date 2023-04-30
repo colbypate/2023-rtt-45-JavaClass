@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,10 +94,79 @@ public class UserController {
         return response;
     }
 
+    // @PreAuthorize("hasAuthority('ADMIN')")
+    // @RequestMapping(value = "/edit{id}", method = RequestMethod.GET)
+    // public ModelAndView edit(@PathVariable Integer id) {
+    //     ModelAndView response = new ModelAndView("user/register");
+
+
+    //     return response;
+    // }
+
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/edit{id}", method = RequestMethod.GET)
+    @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Integer id) {
-        ModelAndView response = new ModelAndView("user/register");
+        ModelAndView response = new ModelAndView("user/edit");
+
+        log.debug("In user edit controller method");
+        User user = userDAO.findById(id);
+        UserFormBean form = new UserFormBean();
+
+        form.setId(user.getId());
+        form.setFirstName(user.getFirstName());
+        form.setLastName(user.getLastName());
+        form.setJob(user.getJob());
+        form.setPassword(user.getPassword());
+        form.setEmail(user.getEmail());
+        
+
+        response.addObject("form", form);
+        return response;
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/editSubmit")
+    public ModelAndView editSubmit(UserFormBean form, BindingResult bindingResult) throws IOException {
+        ModelAndView response = new ModelAndView("user/edit");
+
+        log.debug("In the user controller - edit submit method");
+        log.debug(form.toString());
+
+
+
+        if (bindingResult.hasErrors()) {
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                log.debug("Validation Error on field: " + error.getField());
+
+                log.debug("Validation Error Message: " + error.getDefaultMessage());
+            }
+
+            response.addObject("bindingResult", bindingResult);
+
+            return response;
+        }
+
+        User user = new User();
+
+
+        if (form.getId() != null && form.getId() > 0) {
+            user = userDAO.findById(form.getId());
+        }
+
+        user.setId(form.getId());
+        user.setFirstName(form.getFirstName());
+        user.setLastName(form.getLastName());
+        user.setJob(form.getJob());
+        user.setEmail(form.getEmail());
+
+        // this is needed by spring security to encrypt passwords as the user is being created.
+        String encryptedPassword = passwordEncoder.encode(form.getPassword());
+        user.setPassword(encryptedPassword);
+
+        userDAO.save(user);
+
+        //now we add the populated form back to the model so when page can display itself again
+        response.setViewName("redirect:/user/search");
 
 
         return response;

@@ -44,7 +44,7 @@
                                             <div class="container text-center">
 
                                                 <h4 class="pb-2">${inventoryList.size()} Items</h4>
-                                                <form action="/orders/addToCart">
+                                                <form action="/sales/addToInvoice">
                                                     <input type="hidden" name="inventoryId" value="${inventory.id}">
                                                     <table class="table table-striped border">
                                                         <thead>
@@ -59,7 +59,7 @@
                                                             <c:forEach items="${inventoryList}" var="inv">
                                                                 <tr>
                                                                     <td><a
-                                                                            href="/inventory/details/${inv.productName}">${inv.productName}</a>
+                                                                            href="/sales/addToInvoice/${inv.productName}">${inv.productName}</a>
                                                                     </td>
                                                                     <td>${inv.quantity}</td>
                                                                     <td>${inv.price}</td>
@@ -67,9 +67,9 @@
                                                                         <td><a href="/inventory/edit/${inv.id}"
                                                                                 class="btn btn-primary">Edit</a></td>
                                                                     </sec:authorize> -->
-                                                                    <td><a href="/inventory/details/${inv.productName}"
+                                                                    <td><a href="/sales/addToInvoice/${inv.id}"
                                                                             class="btn btn-primary btn-lg">Add To
-                                                                            Cart</a></td>
+                                                                            Invoice</a></td>
                                                                     <!-- <td><button value="${inv.id}" onclick="formSubmit()"
                                                                             type="submit" class="btn btn-secondary">Add
                                                                             to

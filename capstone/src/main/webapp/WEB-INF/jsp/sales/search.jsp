@@ -49,7 +49,7 @@
                                                         <tr>
                                                             <th scope="col">Id</th>
                                                             <th scope="col">Sale Date</th>
-                                                            <th scope="col">Sales Associate</th>
+                                                            <th scope="col">Employee ID</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col">More Info</th>
                                                         </tr>

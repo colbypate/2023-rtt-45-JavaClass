@@ -31,7 +31,7 @@
                                         <div class="row justify-content-center">
                                             <section class="pb-5 bg-dark-grey">
                                                 <center>
-                                                    <h1 class="mb-5">Invoive</h1>
+                                                    <h1 class="mb-5">Invoice</h1>
                                                 </center>
                                                 <div class="container text-center">
 

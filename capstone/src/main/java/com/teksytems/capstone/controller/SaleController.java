@@ -62,7 +62,7 @@ public class SaleController {
     public ModelAndView findOrderById(@RequestParam(required = false) Integer id) {
         log.debug("In the sales search controller method with search = " + id);
         // modifying viewName to reflect folder structure where employee-search is
-        ModelAndView response = new ModelAndView("orders/search");
+        ModelAndView response = new ModelAndView("sales/search");
         //Added this user so that i can display the user name that made each order(may not work need to check)
         List<Sales> sales = new ArrayList<>();
         sales = salesDAO.findSalesById(id);
@@ -139,9 +139,22 @@ public class SaleController {
         return response;
     }
 
+    // @GetMapping("/inventoyDetails/{productName}")
+    // public ModelAndView detail(@PathVariable String productName) {
+    //     ModelAndView response = new ModelAndView("sales/inventoryDetails");
 
-    @RequestMapping(value = {"/addToInvoice"}, method = RequestMethod.GET)
-    public ModelAndView addtocart(@RequestParam(required = false) Integer inventoryId) {
+    //     log.debug("In inventory detail controller method with name = " + productName);
+    //     Inventory inventory = inventoryDAO.findInventoryByProductNameExact(productName);
+
+    //     response.addObject("inventory", inventory);
+
+    //     log.debug(inventory + "");
+    //     return response;
+    // }
+
+
+    @RequestMapping(value = {"/addToInvoice/{inventoryId}"}, method = RequestMethod.GET)
+    public ModelAndView addToInvoice(@PathVariable Integer inventoryId) {
         log.debug("In the addToInvoice controller method.");
         ModelAndView response = new ModelAndView("redirect:/sales/create");
 
