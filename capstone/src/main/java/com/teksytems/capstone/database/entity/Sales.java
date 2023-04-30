@@ -1,6 +1,6 @@
 package com.teksytems.capstone.database.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +25,14 @@ public class Sales {
     private Integer userId;
 
     @Column(name="sale_date")
+    @Temporal(TemporalType.DATE)
     private Date saleDate;
 
     @Column(name="comments")
     private String comments;
+
+    @Column(name = "status")
+    private String status;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "sales", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

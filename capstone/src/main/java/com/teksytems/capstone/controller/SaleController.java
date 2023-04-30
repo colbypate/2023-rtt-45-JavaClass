@@ -19,13 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oracle.wls.shaded.org.apache.xalan.lib.Redirect;
 import com.teksytems.capstone.database.dao.InventoryDAO;
-import com.teksytems.capstone.database.dao.OrderDetailsDAO;
-import com.teksytems.capstone.database.dao.OrdersDAO;
+import com.teksytems.capstone.database.dao.SaleDetailsDAO;
+import com.teksytems.capstone.database.dao.SalesDAO;
 import com.teksytems.capstone.database.dao.UserDAO;
 import com.teksytems.capstone.database.dao.UserRolesDAO;
 import com.teksytems.capstone.database.entity.Inventory;
-import com.teksytems.capstone.database.entity.OrderDetails;
-import com.teksytems.capstone.database.entity.Orders;
+import com.teksytems.capstone.database.entity.SaleDetails;
+import com.teksytems.capstone.database.entity.Sales;
 import com.teksytems.capstone.database.entity.User;
 import com.teksytems.capstone.formbeans.OrderFormBean;
 import com.teksytems.capstone.security.AuthenticatedUserService;
@@ -36,9 +36,9 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@RequestMapping("/orders")
+@RequestMapping("/sales")
 @Controller
-public class OrderController {
+public class SaleController {
 
     @Autowired
     private UserDAO userDAO;
@@ -47,10 +47,10 @@ public class OrderController {
     private UserRolesDAO userRoleDAO;
 
     @Autowired
-    private OrdersDAO ordersDAO;
+    private SalesDAO salesDAO;
 
     @Autowired
-    private OrderDetailsDAO orderDetailsDAO;
+    private SaleDetailsDAO saleDetailsDAO;
 
     @Autowired
     private InventoryDAO inventoryDAO;
@@ -60,24 +60,24 @@ public class OrderController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView findOrderById(@RequestParam(required = false) Integer id) {
-        log.debug("In the orders search controller method with search = " + id);
+        log.debug("In the sales search controller method with search = " + id);
         // modifying viewName to reflect folder structure where employee-search is
         ModelAndView response = new ModelAndView("orders/search");
         //Added this user so that i can display the user name that made each order(may not work need to check)
-        List<Orders> orders = new ArrayList<>();
-        orders = ordersDAO.findOrderById(id);
+        List<Sales> sales = new ArrayList<>();
+        sales = salesDAO.findSalesById(id);
 
         if (id != null) {
-            log.debug("Searching for orders by id = " + id);
-            orders = ordersDAO.findOrderById(id);
+            log.debug("Searching for sales by id = " + id);
+            sales = salesDAO.findSalesById(id);
         }
         if (id == null) {
-            orders = ordersDAO.getAllOrders();
+            sales = salesDAO.getAllSales();
         }
 
 
-        response.addObject("orderList", orders);
-        response.addObject("orderId", id);
+        response.addObject("saleList", sales);
+        response.addObject("saleId", id);
 
         return response;
     }
@@ -86,7 +86,7 @@ public class OrderController {
     public ModelAndView findInventoriesByProductName(@RequestParam(required = false) String productName) {
         log.debug("In the Order search controller method with search = " + productName);
         // modifying viewName to reflect folder structure where employee-search is
-        ModelAndView response = new ModelAndView("orders/create");
+        ModelAndView response = new ModelAndView("sales/create");
 
         List<Inventory> inventory = new ArrayList<>();
         inventory = inventoryDAO.findInventoryByProductName(productName);
@@ -108,28 +108,26 @@ public class OrderController {
 
     @GetMapping("/details/{id}")
     public ModelAndView details(@PathVariable Integer id) {
-        ModelAndView response = new ModelAndView("orders/details");
+        ModelAndView response = new ModelAndView("sales/details");
 
-        log.debug("In employee detail controller method with id = " + id);
-        List<Orders> orders = ordersDAO.findOrderById(id);
+        log.debug("In sales detail controller method with id = " + id);
+        List<Sales> sales = salesDAO.findSalesById(id);
 
-        response.addObject("orders", orders);
+        response.addObject("sales", sales);
 
-        log.debug(orders + "");
+        log.debug(sales + "");
         return response;
     }
 
 
-    @GetMapping("/viewCart")
-    public ModelAndView viewCart() {
-        log.debug("In the view cart controller method");
-        ModelAndView response = new ModelAndView("orders/cart");
+    @GetMapping("/viewInvoice")
+    public ModelAndView viewInvoice() {
+        log.debug("In the view Incoice controller method");
+        ModelAndView response = new ModelAndView("sales/invoice");
 
         User user = authenticatedUserService.loadCurrentUser();
-        //Order order = new Order();
-        //order.setUser(user);
 
-        List<Map<String, Object>> productList = ordersDAO.findCartProductsByUserId(user.getId());
+        List<Map<String, Object>> productList = salesDAO.findInvoiceProductsByUserId(user.getId());
 
         boolean hasProduct = false;
         if (!productList.isEmpty()) {
@@ -142,110 +140,106 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = {"/addToCart"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/addToInvoice"}, method = RequestMethod.GET)
     public ModelAndView addtocart(@RequestParam(required = false) Integer inventoryId) {
-        log.debug("In the addtocart controller method.");
-        ModelAndView response = new ModelAndView("redirect:/orders/create");
+        log.debug("In the addToInvoice controller method.");
+        ModelAndView response = new ModelAndView("redirect:/sales/create");
 
         Inventory inventory = inventoryDAO.findById(inventoryId);
 
         User user = authenticatedUserService.loadCurrentUser();
 
-        Orders order = ordersDAO.findOrderByStatusAndUserId(user.getId());
+        Sales sale = salesDAO.findSaleByStatusAndUserId(user.getId());
 
-        if (order == null) {
+        if (sale == null) {
 
-            order = new Orders();
-            order.setStatus("Cart");
-            order.setUser(user);
-            order.setOrderDate(new Date());
-            ordersDAO.save(order);
+            sale = new Sales();
+            sale.setStatus("Cart");
+            sale.setUser(user);
+            sale.setSaleDate(new Date());
+            salesDAO.save(sale);
         }
 
-        OrderDetails orderDetails = orderDetailsDAO.findByOrderIdAndInventoryId(order.getId(), inventory.getId());
+        SaleDetails saleDetails = saleDetailsDAO.findBySaleIdAndInventoryId(sale.getId(), inventory.getId());
 
-        if (orderDetails == null) {
-            orderDetails = new OrderDetails();
-            orderDetails.setQuantity(1);
-            orderDetails.setInventory(inventory);
-            orderDetails.setOrders(order);
-            orderDetails.setTotalPrice(inventory.getPrice());
-            inventory.setQuantity(inventory.getQuantity() + orderDetails.getQuantity());
+        if (saleDetails == null) {
+            saleDetails = new SaleDetails();
+            saleDetails.setQuantity(1);
+            saleDetails.setInventory(inventory);
+            saleDetails.setSales(sale);
+            saleDetails.setTotalPrice(inventory.getPrice());
+            inventory.setQuantity(inventory.getQuantity() - saleDetails.getQuantity());
         } else {
-            orderDetails.setQuantity(orderDetails.getQuantity() + 1);
-            orderDetails.setTotalPrice(inventory.getPrice()*orderDetails.getQuantity());
-            inventory.setQuantity(inventory.getQuantity() + 1);
+            saleDetails.setQuantity(saleDetails.getQuantity() + 1);
+            saleDetails.setTotalPrice(inventory.getPrice()*saleDetails.getQuantity());
+            inventory.setQuantity(inventory.getQuantity() - 1);
         }
-        orderDetailsDAO.save(orderDetails);
+        saleDetailsDAO.save(saleDetails);
         inventoryDAO.save(inventory);
         // response.setViewName("redirect:/orders/viewcart");
         return response;
     }
 
-    @RequestMapping(value = {"/submitOrder"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/submitSale"}, method = RequestMethod.GET)
     public ModelAndView checkout() {
-        log.debug("In the submit order method");
+        log.debug("In the submit sale method");
 
         ModelAndView response = new ModelAndView("redirect:/dashboard");
 
         User user = authenticatedUserService.loadCurrentUser();
 
-        Orders order = ordersDAO.findOrderByStatusAndUserId(user.getId());
-        order.setStatus("Complete");
-        ordersDAO.save(order);
+        Sales sale = salesDAO.findSaleByStatusAndUserId(user.getId());
+        sale.setStatus("Complete");
+        salesDAO.save(sale);
 
         return response;
 
 
     }
 
-    @RequestMapping(value = {"/deleteFromCart"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/deleteFromInvoice"}, method = RequestMethod.GET)
     public ModelAndView productSearch(@RequestParam(required = true) Integer inventoryId) {
-        log.debug("In the delete from cart method");
+        log.debug("In the delete from invoice method");
 
 
-        ModelAndView response = new ModelAndView("redirect:/orders/viewCart");
+        ModelAndView response = new ModelAndView("redirect:/sales/viewInvoice");
 
         User user = authenticatedUserService.loadCurrentUser();
 
         Inventory inventory = inventoryDAO.findById(inventoryId);
-        Orders order = ordersDAO.findOrderByStatusAndUserId(user.getId());
-        OrderDetails orderDetails = orderDetailsDAO.findByOrderIdAndInventoryId(order.getId(), inventoryId);
+        Sales sale = salesDAO.findSaleByStatusAndUserId(user.getId());
+        SaleDetails saleDetails = saleDetailsDAO.findBySaleIdAndInventoryId(sale.getId(), inventoryId);
 
-        inventory.setQuantity(inventory.getQuantity() - orderDetails.getQuantity() );
+        inventory.setQuantity(inventory.getQuantity() + saleDetails.getQuantity() );
         
         inventoryDAO.save(inventory);
-        orderDetailsDAO.deleteFromCart(inventoryId);
+        saleDetailsDAO.deleteFromInvoice(inventoryId);
         response.addObject("inventory", inventory);
         return response;
 
 
     }
 
-    @RequestMapping(value = "/orderDetails/{id}", method = RequestMethod.GET)
-    public ModelAndView findOrderDetails(@PathVariable Integer id) {
-        log.debug("In the orderDetails controller method with search");
-        ModelAndView response = new ModelAndView("orders/details");
+    @RequestMapping(value = "/saleDetails/{id}", method = RequestMethod.GET)
+    public ModelAndView findSaleDetails(@PathVariable Integer id) {
+        log.debug("In the saleDetails controller method with search");
+        ModelAndView response = new ModelAndView("sales/details");
 
 
-        List<OrderDetails> orderDetails = new ArrayList<>();
-        orderDetails = orderDetailsDAO.findByOrderId(id);
+        List<SaleDetails> saleDetails = new ArrayList<>();
+        saleDetails = saleDetailsDAO.findBySaleId(id);
 
         if (id != null) {
-            log.debug("Searching for orders by id = " + id);
-            OrderDetails orderDetail = orderDetailsDAO.findById(id);
-            if (orderDetail != null) {
-                orderDetails.add(orderDetail);
+            log.debug("Searching for sales by id = " + id);
+            SaleDetails saleDetail = saleDetailsDAO.findById(id);
+            if (saleDetail != null) {
+                saleDetails.add(saleDetail);
             }
         }
 
-        response.addObject("orderDetailsList", orderDetails);
+        response.addObject("saleDetailsList", saleDetails);
         //response.addObject("orderId", id);
 
         return response;
     }
-
-
 }
-
-   

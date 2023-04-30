@@ -45,12 +45,4 @@ public class SlashController {
         return response;
     }
 
-    // @RequestMapping(value = "/inventory/inventory", method = RequestMethod.GET)
-    // public ModelAndView inventory() {
-    //     log.info("Inventory controller method:");
-    //     ModelAndView response = new ModelAndView("inventory");
-    //     /* the index name in the ModelAndView is the name of the jsp file without the extension */
-    //     return response;
-    // }
-
 }

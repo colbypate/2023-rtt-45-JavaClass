@@ -89,12 +89,19 @@
                                     </li>
                             </sec:authorize>
                         </div>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/orders/viewCart">Cart</a>
-                        </li>
                     </ul>
                 </div>
                 </ul>
+                <div class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders/viewCart">Cart</a>
+                    </li>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sales/viewInvoice">Invoice</a>
+                    </li>
+                </div>
                 <div class="navbar-nav ms-auto">
                     <div>
                         <sec:authorize access="isAuthenticated()">

@@ -17,10 +17,13 @@ import java.util.List;
 public class SaleDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
     @Column(name = "sale_id", insertable=false, updatable=false)
     private Integer saleId;
 
-    @Id
     @Column(name = "inventory_id", insertable=false, updatable=false)
     private Integer inventoryId;
 
