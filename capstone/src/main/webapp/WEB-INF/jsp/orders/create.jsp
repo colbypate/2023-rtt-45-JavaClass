@@ -71,7 +71,7 @@
                                                                         <td><a href="/inventory/edit/${inv.id}"
                                                                                 class="btn btn-primary">Edit</a></td>
                                                                     </sec:authorize> -->
-                                                                        <td><a href="/inventory/details/${inv.productName}"
+                                                                        <td><a href="/orders/addToCart/${inv.id}"
                                                                                 class="btn btn-primary btn-lg">Add To
                                                                                 Cart</a></td>
                                                                         <!-- <td><button value="${inv.id}" onclick="formSubmit()"

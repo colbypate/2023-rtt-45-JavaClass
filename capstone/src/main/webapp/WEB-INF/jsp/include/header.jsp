@@ -79,10 +79,10 @@
                                 <ul class="dropdown-menu" style="margin-right: auto;"
                                     aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a class="dropdown-item" href="/sales/search">View Sales</a>
+                                        <a class="dropdown-item" href="/sales/search">View Invoices</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/sales/create">Create Sale</a>
+                                        <a class="dropdown-item" href="/sales/create">Create Invoice</a>
                                     </li>
                             </sec:authorize>
                         </div>

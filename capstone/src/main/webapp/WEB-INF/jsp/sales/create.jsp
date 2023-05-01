@@ -60,7 +60,7 @@
                                                                 <c:forEach items="${inventoryList}" var="inv">
                                                                     <tr>
                                                                         <td><a
-                                                                                href="/sales/addToInvoice/${inv.productName}">${inv.productName}</a>
+                                                                                href="/inventory/details/${inv.productName}">${inv.productName}</a>
                                                                         </td>
                                                                         <td>${inv.quantity}</td>
                                                                         <td>

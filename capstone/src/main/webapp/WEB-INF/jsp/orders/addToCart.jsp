@@ -24,7 +24,7 @@
                                             </center>
                                             <div class="row">
                                                 <div class="col-lg-8 col-xl-8">
-                                                    <form action="/orders/addToCart">
+                                                    <form action="/sales/addToInvoice">
                                                         <input type="hidden" name="inventoryId" value="${inventory.id}">
                                                         <table class="table table-striped border">
                                                             <tr>
@@ -58,12 +58,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div>
+                                        <div>
                                             <td><button value="${inv.id}" onclick="formSubmit()" type="submit"
                                                     class="btn btn-secondary">Add
                                                     to
                                                     Cart</button></td>
-                                        </div> -->
+                                        </div>
                                         </form>
                                     </section>
                                 </div>

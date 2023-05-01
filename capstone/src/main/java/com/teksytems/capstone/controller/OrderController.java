@@ -140,8 +140,8 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = {"/addToCart"}, method = RequestMethod.GET)
-    public ModelAndView addtocart(@RequestParam(required = false) Integer inventoryId) {
+    @RequestMapping(value = {"/addToCart/{inventoryId}"}, method = RequestMethod.GET)
+    public ModelAndView addtocart(@PathVariable Integer inventoryId) {
         log.debug("In the addtocart controller method.");
         ModelAndView response = new ModelAndView("redirect:/orders/create");
 
