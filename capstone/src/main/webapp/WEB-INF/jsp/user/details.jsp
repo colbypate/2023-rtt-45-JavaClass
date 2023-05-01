@@ -50,7 +50,7 @@
                                             </table>
                                         </div>
                                     </section>
-                                    <section class="col-5 pt-5 pb-5 bg-light-grey">
+                                    <!-- <section class="col-5 pt-5 pb-5 bg-light-grey">
                                         <div class="container">
                                             <table class="table table-striped border">
                                                 <tr>
@@ -64,7 +64,7 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                    </section>
+                                    </section> -->
 
 
                                     <jsp:include page="../include/footer.jsp" />

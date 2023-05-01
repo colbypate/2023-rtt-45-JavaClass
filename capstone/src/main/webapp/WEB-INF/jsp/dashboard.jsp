@@ -31,7 +31,7 @@
                                     Tulips
                                 </h5>
                                 <p class="card-text">
-                                    Much like daffodils, tulips are a classic late winter and early spring flower.
+                                    Much like daffodils, tulips are a classic late winter and spring flower.
                                     Tulips (which
                                     come in shades as varied as vibrant yellow to pastel pink) bring an elegant, refined
                                     feel to
@@ -57,9 +57,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">Ranunculus</h5>
                                 <p class="card-text">
-                                    Ranunculus naturally blooms during late winter and early spring so it'll look
+                                    Ranunculus naturally blooms during late winter and spring so it'll look
                                     especially
-                                    fresh and sprightly at a March wedding.
+                                    fresh and sprightly at an April/May wedding.
                                 </p>
                                 <p class="card-text">
                                     <small class="text-muted">
@@ -116,5 +116,4 @@
             <!-- Carousel -->
 
         </body>
-
-        </html>
+        <jsp:include page="include/footer.jsp" />

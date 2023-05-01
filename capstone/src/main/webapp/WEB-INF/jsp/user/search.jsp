@@ -59,7 +59,7 @@
                                                             <th scope="col">Last Name</th>
                                                             <th scope="col">Email</th>
                                                             <th scope="col">Job</th>
-                                                            <th scope="col">Total Sales</th>
+                                                            <!-- <th scope="col">Total Sales</th> -->
                                                             <sec:authorize access="hasAnyAuthority('ADMIN')">
                                                                 <th scope="col">Edit</th>
                                                             </sec:authorize>
@@ -73,7 +73,7 @@
                                                                 <td>${user.lastName}</td>
                                                                 <td>${user.email}</td>
                                                                 <td>${user.job}</td>
-                                                                <td>${user.totalSales}</td>
+                                                                <!-- <td>${user.totalSales}</td> -->
                                                                 <sec:authorize access="hasAnyAuthority('ADMIN')">
                                                                     <td><a href="/user/edit/${user.id}"
                                                                             class="btn btn-primary">Edit</a></td>

@@ -20,9 +20,9 @@
                                     <section class="pt-5 pb-5 bg-dark-grey">
                                         <div class="container text-center">
                                             <img width="400px" height='500px'
-                                                src="https://z0sqrs-a.akamaihd.net/4566_storetheme/Template-Assets/images/empty-cart.svg">
-                                            <h3 style="margin-top: 25px;">Looks like your cart is empty! <a
-                                                    href="/inventory/search">Add Items to Order</a></h3>
+                                                src="https://static.vecteezy.com/system/resources/previews/005/035/459/non_2x/financial-invoice-with-pencil-vector.jpg">
+                                            <h3 style="margin-top: 25px;">Looks like your invoice is empty! <a
+                                                    href="/sales/create">Add Items to Invoice</a></h3>
                                         </div>
                                     </section>
                                 </c:if>

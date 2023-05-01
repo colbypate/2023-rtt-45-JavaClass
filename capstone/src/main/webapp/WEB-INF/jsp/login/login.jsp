@@ -42,13 +42,11 @@
                                             </div>
 
                                             <div style="text-align: center;"> <label>
-                                                    Do you want us to remember you?
+                                                    Remember me?
                                                 </label>
                                                 <br>
-                                                <input type="radio" id="yes" name="remember" value="yes">
+                                                <input type="checkbox" id="yes" name="remember" value="yes">
                                                 <label for="yes">Yes</label><br>
-                                                <input type="radio" id="no" name="remember" value="no">
-                                                <label for="no">No</label><br>
                                             </div>
 
 
